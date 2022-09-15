@@ -97,7 +97,7 @@ wv_winred_contribs %>%
 ```
 
 **Q6** What is that top recipient and what explains its popularity? Hint: this will require web research, you won't be able to answer this purely from the data set.  You do not need to write any code for this question, so no codeblock is provided.  
-**A6** The popularity is due to Donald Trump and his attempt to run of re-election.In 2020, this organization donated to Trump the most.
+**A6** The popularity is due to Donald Trump and his attempt to run of re-election. In 2020, this organization donated to Trump the most.
 
 **Q7**. Produce a summary table that has the following information for West Virginia as a whole (the whole state, not by city):
 * count of contributions
@@ -109,7 +109,7 @@ wv_winred_contribs %>%
 
 Store it as a variable object called `wv_summary` so that you can examine it with the data viewer. What newsworthy nuggets jump out at you that you could imagine dropping into a news story? Write a few summary sentences with overall findings.
 
-**A7**. 
+**A7**I'm not totally sure about the chart. I think this one below is the right one. My previous attempt is the second graph beneath. The state of West Virgina received 13382 contributions amounting to $356,828.6. By looking at the information, it looks like most of the people who made contributions are retired. I could imagine using that fact in a news story about the source of contributions in WV, which occupations account for the most contributions. 
 
 ```{r}
 
@@ -128,8 +128,10 @@ wv_winred_contribs %>%
     max_amount = max(amount)
   ) %>%
   arrange(desc(total_amount))
-```
 
+wv_winred_contributions <- read_rds("lab_01.rds")
+
+```
 
 ```{r}
 wv_winred_contribs %>%

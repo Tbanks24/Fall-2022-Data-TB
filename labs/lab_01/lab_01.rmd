@@ -113,6 +113,20 @@ Store it as a variable object called `wv_summary` so that you can examine it wit
 
 ```{r}
 
+wv_summary <- wv_winred_contribs %>% 
+group_by(state,amount) %>% 
+summarise
+( count_contribs = n(), 
+total_amount = sum(amount), 
+mean_amount = mean(amount),
+median_amount = median(amount), 
+min_amount = min(amount), 
+max_amount = max(amount) ) %>% 
+arrange(desc(total_amount)) The wv_summary <- bit
+
+^^^His code he gave in class check Elms!!
+
+
 ```
 
 

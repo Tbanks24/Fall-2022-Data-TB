@@ -53,3 +53,130 @@ ppp_maryland_loans %>%
   arrange(desc(max_loan_amount))
 ```
 
+
+Pre-lab 02 Notes:
+
+```{r}
+head(primary_18)
+summary(primary_18)
+colnames(primary_18)
+glimpse(primary_18)
+```
+
+Head- Puts data in a chart
+Summary- Provides an overall summart of the data from each cataegory from the chart (Max, Min, Median, mean, ect...)
+Colnames- shows each of the column names from the chart.
+Glimpse- Shows data type along with the values from the different columns in the chart. 
+
+Mutate:adds new column base on exisiting columns. Populate data in new column using other columns. 
+ Ex:
+ 
+```{r}
+primary_18_%>%
+  select(office, district, name_raw, party, jurisdiction, election_day, votes) %>% 
+  mutate(
+  percent_election_day = election_day/votes
+)
+```
+ Select: Means I only want to see a certain number of rows. 
+ 
+ Ordering the columns using arrange:
+ 
+```{r}
+primary_18 %>%
+  select(office, district, name_raw, party, jurisdiction, election_day, votes) %>% 
+  mutate(
+  percent_election_day = (election_day/votes)*100
+)  %>% arrange(desc(percent_election_day))
+```
+ 
+You'll notice that there's a mix of styles: "Baltimore" and "BALTIMORE" for example. R will think those are two different cities, and that will mean that any aggregates we create based on city won't be accurate.
+
+So how can we fix that? Mutate - it's not just for math! And a function called `str_to_upper` that will convert a character column into all uppercase. Now we can say exactly how many donations came from Baltimore (I mean, of course, BALTIMORE).
+
+```{r}
+standardized_maryland_cities <- maryland_cities %>%
+  mutate(
+    upper_city = str_to_upper(city)
+)
+```
+
+```{r}
+standardized_maryland_cities %>% 
+  group_by(upper_city) %>% 
+  summarize(total = sum(sum), total_count = sum(count))
+```
+
+Str_to_lower- Converts a string to lowercase (Letters of each word in a string are lowercased)
+Str_to_title- Converts the first letter of each word in a string to uppercase and the rest to lower case. 
+
+Mutate is even more useful when combined with some additional functions. Let's focus on individual contributions from Maryland donors via WinRed; we'd like to group their donations by amount into one of four categories:
+
+1. Under $100
+2. $101-$499
+3. $500-$2,900
+4. More than $2,901
+
+Mutate can make that happen by creating a new column and putting in a category value _based on the amount_ of each record. First, let's load some individual contributions:
+
+Case When Example:
+
+```{r}
+maryland_winred_categories <- maryland_winred %>%
+  mutate(
+    amount_category = case_when(
+        amount < 100 ~ "Less than $100",
+        amount >= 100 & amount <= 500 ~ "Between $100 and $500",
+        amount > 500 & amount <= 2900 ~ "Between $501 and $2900",
+        amount > 2900 ~ "More than $2,900"
+      )
+  )
+head(maryland_winred_categories)
+```
+
+```{r}
+maryland_winred_categories %>% 
+  group_by(amount_category) %>% 
+  summarize(total_amount = sum(amount)) %>% 
+  arrange(desc(total_amount))
+```
+
+
+Mutate is there to make your data more useful and to make it easier for you to ask more and better questions of it.
+
+
+Comparission operators:
+We need to filter all records equal to "Prince George's". The comparison operators in R, like most programming languages, are == for equal to, != for not equal to, > for greater than, >= for greater than or equal to and so on.
+
+
+From pre lab 01 variable example: 
+Name of varaible, left arrow dash symbol, and then the value. 
+number <- -2  
+
+What does nrow mean? 
+
+
+```{r}
+or_prince_georges <- primary_18 %>% filter(jurisdiction == "Prince George's" | office == "Governor / Lt. Governor")
+
+nrow(or_prince_georges)
+```
+
+So there's 355 rows that are EITHER in Prince George's OR are governor results. OR is additive; AND is restrictive.
+
+Run the following code and describe the change in the expenditure_date column.
+
+```{r}
+maryland_expenses <- maryland_expenses %>% mutate(expenditure_date=mdy(expenditure_date))
+
+head(maryland_expenses)
+```
+
+
+Lubridate has functions for basically any type of character date format: mdy, ymd, even datetimes like ymd_hms.
+
+Fortunately, `readr` anticipates some date formatting and can automatically handle many of these issues (indeed it uses lubridate under the hood). When you are importing a CSV file, be sure to use `read_csv`, not `read.csv`.
+
+
+
+

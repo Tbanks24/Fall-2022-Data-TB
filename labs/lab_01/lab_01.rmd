@@ -76,7 +76,8 @@ wv_winred_contribs%>%
   ) %>% 
   arrange((count_contribs))
 ```
-**Q4** What's your best educated guess to explain why the city identified in question 2 had more contributions compared to the cities identified in question 3? Hint: you won't find the answer in the data, you'll need to do some quick web research. You do not need to write any code for this question, so no codeblock is provided.  
+**Q4** What's your best educated guess to explain why the city identified in question 2 had more contributions compared to the cities identified in question 3? Hint: you won't find the answer in the data, you'll need to do some quick web research. You do not need to write any code for this question, so no codeblock is provided.
+
 **A4** Martinsburg is the sixth most populated city in West Virgina. That would mean that the city has more people to donate money than other cities with lower populations. 
 
 **Q5** What recipient got the largest total amount of money? How many contributions did they receive and what was the average donation?

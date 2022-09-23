@@ -103,7 +103,7 @@ Q5. How many contributions of $2,900 - the individual maximum donation - were th
 A5. 
 There were six contributions of 2,900. The contributions went to Carol for Congress, McKinley for Congress, Palazzo for Congress, and Zinke for Congress.
 
-How many of the recipients are from West Virginia?:2, both Carol for Congress and McKinley for Congress are from West Virginia. 
+How many of the recipients are from West Virginia?:2, both Carol for Congress and McKinley for Congress are from West Virginia.
 
 ```{r}
 wv_winred_contribs %>%

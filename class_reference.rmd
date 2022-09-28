@@ -187,3 +187,28 @@ Review:
 
 rm (data frame name from the environment)- How you remove something from environment. 
 
+Floordate, takes date and puts it near the nearest integer value. 
+
+Cleaning Names Funtion: This function allows you to fix the names of columns.
+
+# cleaning function
+cleaned_conowingo <- conowingo %>%
+  clean_names()
+
+# display the cleaned dataset
+cleaned_conowingo
+
+
+# cleaning function
+cleaned_conowingo <- conowingo %>%
+  clean_names() %>% 
+  rename(linenumber = x1_linenumber) %>% 
+  mutate(amount = as.numeric(amount)) %>% 
+  distinct()
+  
+
+# display the cleaned dataset
+cleaned_conowingo
+
+
+

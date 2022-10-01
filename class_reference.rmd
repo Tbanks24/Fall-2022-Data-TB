@@ -191,6 +191,16 @@ Floordate, takes date and puts it near the nearest integer value.
 
 Cleaning Names Funtion: This function allows you to fix the names of columns.
 
+
+cleaned_conowingo <- conowingo %>%
+  clean_names() %>% 
+  rename(linenumber = x1_linenumber) %>% 
+  mutate(amount = as.numeric(amount)) %>% 
+  distinct() %>%
+  mutate(zip = str_sub(zip, start=1L, end=5L))
+  
+  distinct () - lob 03,lets you keep just distinct value of a function. Used when dealing with duplicates. 
+
 # cleaning function
 cleaned_conowingo <- conowingo %>%
   clean_names()
@@ -210,5 +220,6 @@ cleaned_conowingo <- conowingo %>%
 # display the cleaned dataset
 cleaned_conowingo
 
+%>% %>% 
 
 

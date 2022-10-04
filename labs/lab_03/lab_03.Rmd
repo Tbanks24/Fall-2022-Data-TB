@@ -148,13 +148,21 @@ arrange(desc(contribution_receipt_amount))
 
 ```{r}
 md_contribs %>% 
-filter (contributor_name == ("TRONE,DAVID"))
+filter (contributor_name == ("TRONE, DAVID"))
 ```
 
 ```{r}
 md_contribs %>% 
-filter(contributor_name == ("MASON,JUANITA"))
+filter(contributor_name == ("MASON, JUANITA"))
 ```
+
+```{r}
+
+```
+
+
+
+
 
 I believe that the code above is supposed to be correct. However, when I try to run it, I get zero results for Trone and Juanita's data.
 

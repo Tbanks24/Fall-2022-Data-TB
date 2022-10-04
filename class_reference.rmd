@@ -200,6 +200,19 @@ cleaned_conowingo <- conowingo %>%
   mutate(zip = str_sub(zip, start=1L, end=5L))
   
   distinct () - lob 03,lets you keep just distinct value of a function. Used when dealing with duplicates. 
+  
+county_voters_combined <- bind_rows(list(county_voters_2016, county_voters_2018, county_voters_2020))
+View(county_voters_combined)
+
+^^^Combining similar columns into one chart for different data frames. 
+As long as you have the same names, order does not matter. 
+
+maryland_population_with_voters <- maryland_population %>% left_join(county_voters_2020)
+
+^^^Left Join example. Adding smaller data coulmn to bigger set. There needs to be a common colmun in both.
+
+maryland_population_with_voters_and_demographics <- maryland_population_with_voters %>% left_join(maryland_demographics, by=c("COUNTY"="NAME"))  
+
 
 # cleaning function
 cleaned_conowingo <- conowingo %>%

@@ -26,6 +26,11 @@ Loading required libraries for this analysis.
 
 ```{r echo=FALSE, message=FALSE}
 
+library(lubridate)
+library(tidyverse)
+library(janitor)
+
+
 ```
 
 ## Load and Cleaning Data
@@ -34,6 +39,8 @@ In this section, describe the source of the data, write a basic data dictionary 
 
 ```{r}
 # Load required data
+
+nonvoters_data <- read_csv('data/nonvoters_data.csv')
 
 # Path to data should be loaded from folder "data" i.e. read_csv("data/name_of_data.csv")
 
@@ -47,11 +54,36 @@ In this notebook, we are reverse engineering five sentences from the story.
 
 ### Sentence 1
 
-* **Sentence text**: [Paste in sentence to engineer here]
+* **Sentence text**: Nonvoters were more likely to have lower incomes; to be young; to have lower levels of education; and to say they don’t belong to either political party, which are all traits that square with what we know about people less likely to engage with the political system. 
+
+```{r}
+
+
+
+
+```
+
+
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
 ```{r}
 # Put code to reverse engineer sentence here
+
+cate_nonvoters <- nonvoters_data %>% 
+mutate(
+  Q30 = case_when( 
+  Q30 >= 3 ~ "neither party",
+Q30 == 2 ~ "Democrat",
+  Q30 == 1 ~"Republican",
+)) %>% 
+mutate(
+  ppage = case_when(
+ppage <= 24 ~ "18-24",
+ppage > 24 ~ "older than 24"))
+
+cate_nonvoters %>% 
+  summarise(income_cat, educ, Q30, voter_category, ppage)
+
 
 # Display results of code below this codeblock
 

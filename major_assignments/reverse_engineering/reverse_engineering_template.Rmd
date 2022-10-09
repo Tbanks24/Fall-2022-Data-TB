@@ -58,35 +58,199 @@ In this notebook, we are reverse engineering five sentences from the story.
 
 ```{r}
 
-
-
-
 ```
 
+* **Analysis summary**: 
+I was able to verify 3 of the four likely attributes named above for nonvoters. By providing individual analyses through looking at rare/never voters and the various attributes, we calculated how many people of the sample data fit into those categories and found the total percentage of each each attribute contributes to likely nonvoters. We couldn't verify "young" which is likely due to that phrase being open for interpretation (we used the standard 18-24) and the total data did not have anyone younger than 22.
 
+```{r}
+# Put code to reverse engineer sentence here
+# Display results of code below this codeblock
+nonvoters_categories <- nonvoters_data %>%
+  mutate(
+    Q30 = case_when(
+      Q30 >= 3 ~ "neither political party",
+      Q30 == 1 ~ "Republican",
+      Q30 == 2 ~ "Democrat",
+      )) %>%
+  mutate(
+    ppage = case_when(
+      ppage <= 24 ~ "22-24",
+      ppage > 24 ~"older than 24") )
+nonvoters_categories %>%
+  summarize(income_cat, educ, Q30, voter_category, ppage)
+```
+```{r}
+nonvoters_total <- nonvoters_categories %>%
+  group_by(voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n())
+nonvoters_total
+```
+```{r}
+total_nonvoters <- 1451
+```
+
+```{r}
+nonvoters_party <- nonvoters_categories %>%
+  group_by(Q30,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+    mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvoters_party
+```
+
+```{r}
+nonvoters_income <- nonvoters_categories %>%
+  group_by(income_cat,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvoters_income
+```
+
+```{r}
+nonvoters_age <- nonvoters_categories %>%
+  group_by(ppage,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvoters_age
+```
+
+```{r}
+nonvoters_edu <- nonvoters_categories %>%
+  group_by(educ,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvoters_edu
+```
+### Sentence 2
+
+* **Sentence text**: [Paste in sentence to engineer here]
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
 ```{r}
 # Put code to reverse engineer sentence here
+# Display results of code below this codeblock
+```
 
-cate_nonvoters <- nonvoters_data %>% 
-mutate(
-  Q30 = case_when( 
-  Q30 >= 3 ~ "neither party",
-Q30 == 2 ~ "Democrat",
-  Q30 == 1 ~"Republican",
-)) %>% 
-mutate(
-  ppage = case_when(
-ppage <= 24 ~ "18-24",
-ppage > 24 ~ "older than 24"))
+### Sentence 3
 
-cate_nonvoters %>% 
-  summarise(income_cat, educ, Q30, voter_category, ppage)
+* **Sentence text**: [Paste in sentence to engineer here]
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
+```{r}
+# Put code to reverse engineer sentence here
+# Display results of code below this codeblock
+```
+
+### Sentence 4
+
+* **Sentence text**: [Paste in sentence to engineer here]
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+
+```{r}
+# Put code to reverse engineer sentence here
+# Display results of code below this codeblock
+```
+
+### Sentence 5
+
+* **Sentence text**: [Paste in sentence to engineer here]
+* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+
+```{r}
+# Put code to reverse engineer sentence here
+# Display results of code below this codeblock
+```
+
+-30-
+
+
+```{r}
+# Put code to reverse engineer sentence here
+nonvoters_categories <- nonvoters_data %>%
+  mutate(
+    Q30 = case_when(
+      Q30 >= 3 ~ "neither political party",
+      Q30 == 1 ~ "Republican",
+      Q30 == 2 ~ "Democrat",
+      )) %>%
+  mutate(
+    ppage = case_when(
+      ppage <= 24 ~ "22-24",
+      ppage > 24 ~"older than 24") )
+nonvoters_categories %>%
+  summarize(income_cat, educ, Q30, voter_category, ppage)
 
 # Display results of code below this codeblock
 
+```
+
+```{r}
+nonvoters_total <- nonvoters_categories %>%
+  group_by(voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n())
+nonvoters_total
+```
+
+```{r}
+total_nonvoters <- 1451
+```
+```{r}
+rarely_never <- nonvoters_data %>%
+  group_by(ppage,voter_category,income_cat) %>%
+  filter(voter_category == "rarely/never",
+         income_cat == "Less than $40k") %>% 
+  summarise(count = n()) %>% 
+arrange(desc(count))
+```
+
+```{r}
+nonvoters_party <- nonvoters_categories %>%
+  group_by(Q30,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+    mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvoters_party
+```
+
+```{r}
+nonvoters_income <- nonvoters_categories %>%
+  group_by(income_cat,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvoters_income
+```
+
+```{r}
+nonvoters_age <- nonvoters_categories %>%
+  group_by(ppage,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvoters_age
+```
+
+```{r}
+nonvoters_edu <- nonvoters_categories %>%
+  group_by(educ,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvoters_edu
 ```
 
 ### Sentence 2

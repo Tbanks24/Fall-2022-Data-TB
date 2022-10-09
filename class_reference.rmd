@@ -218,6 +218,9 @@ View(county_voters_combined)
 
 list- There's a list of data frames comply.
 
+To add everything in a column- sum(namedofdataframe$nameofcolumn)
+
+
 # cleaning function
 cleaned_conowingo <- conowingo %>%
   clean_names()

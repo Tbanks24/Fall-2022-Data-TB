@@ -53,6 +53,32 @@ ppp_maryland_loans %>%
   arrange(desc(max_loan_amount))
 ```
 
+summarise(total_amount = sum(amount)) -  Added up all the amounts in the column for two different groups (I grouped by committee_name) below:
+
+Facebook <- Newmedia_expenses %>% 
+  mutate(Facebook = case_when(
+    payee_name == "FACEBOOK PAYMENTS INC" ~ "Facebook/Meta",
+    payee_name == "Facebook Corporate" ~ "Facebook/Meta" ,
+    payee_name == "Face Book" ~ "Facebook/Meta",
+    payee_name == "Facd Book" ~ "Facebook/Meta")) %>% 
+filter(payee_name == 'Facebook/Meta') %>% 
+  group_by(committee_name) %>% 
+ summarise(total_amount = sum(amount)) %>% ---MEANS total_amount column IS EQUAL TO THE sum of the amounts. 
+  arrange(desc(total_amount))
+  
+Answers but in chart form:
+
+1
+McMahon  Jeffrey For Commissioner
+914.04
+
+2
+
+Brown  Monise Keep Judge
+826.27
+
+
+
 
 Pre-lab 02 Notes:
 
@@ -219,6 +245,18 @@ View(county_voters_combined)
 list- There's a list of data frames comply.
 
 To add everything in a column- sum(namedofdataframe$nameofcolumn)
+
+disability_voters <- nonvoters_data %>%
+  group_by(Q10_1,voter_category) %>%
+  filter(voter_category == “rarely/never”) %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+disability_voters
+
+Re-state at the end so that it shows you the table again. 
+
+***When Read CSV doesn't work, go to gear wheel icon and press set as working directory. 
 
 
 # cleaning function

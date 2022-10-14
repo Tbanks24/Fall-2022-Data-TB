@@ -1,0 +1,97 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+glenn_ivey_individual_contribs <- read_csv("schedule_a-2022-10-12T09_55_30.csv")
+glenn_ivey_individual_contribs
+```
+
+```{r}
+glenn_ivey_individual_contribs %>% 
+  group_by(contributor_name) %>% 
+  summarize(count=n()) %>% 
+  arrange(desc(count))
+```
+```{r}
+glenn_ivey_individual_contribs %>% 
+  group_by(contributor_name) %>% 
+  summarize(total_amount = sum(contribution_receipt_amount)) %>% 
+  arrange(desc(total_amount))
+```
+```{r}
+glenn_ivey_individual_contribs %>% 
+  filter(contributor_name == "ACTBLUE")
+```
+```{r}
+glenn_ivey_otherPAC_contribs <- read_csv("schedule_a-2022-10-12T10_06_24.csv")
+glenn_ivey_otherPAC_contribs
+```
+
+```{r}
+glenn_ivey_otherPAC_contribs %>% 
+  group_by(contributor_name) %>% 
+  summarize(count=n()) %>% 
+  arrange(desc(count))
+```
+
+```{r}
+glenn_ivey_otherPAC_contribs %>% 
+  group_by(contributor_name) %>%
+  summarize(total_amount = sum(contribution_receipt_amount)) %>% 
+  arrange(desc(total_amount))
+```
+
+```{r}
+glenn_ivey_individual_contribs %>% 
+  group_by(contributor_state) %>% 
+  summarize(count=n()) %>% 
+  arrange(desc(count))
+```
+
+```{r}
+glenn_ivey_otherPAC_contribs %>% 
+  group_by(contributor_state) %>% 
+  summarize(count=n()) %>% 
+  arrange(desc(count))
+```
+
+```{r}
+glenn_ivey_individual_contribs %>% 
+  filter(contributor_state == "DC")
+```
+
+```{r}
+glenn_ivey_otherPAC_contribs %>% 
+  filter(contributor_state == "MA")
+```
+
+```{r}
+glenn_ivey_expenditures <- read_csv("schedule_b-2022-10-13T10_02_36.csv")
+glenn_ivey_expenditures
+```
+
+```{r}
+glenn_ivey_expenditures %>% 
+  group_by(recipient_name) %>%
+  summarize(total_amount = sum(disbursement_amount)) %>% 
+  arrange(desc(total_amount))
+```
+
+```{r}
+glenn_ivey_expenditures %>% 
+  filter(recipient_name == "IVEY, JULIAN")
+```
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+

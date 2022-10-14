@@ -57,7 +57,6 @@ In this notebook, we are reverse engineering five sentences from the story.
 * **Sentence text**: Nonvoters were more likely to have lower incomes; to be young; to have lower levels of education; and to say they don’t belong to either political party, which are all traits that square with what we know about people less likely to engage with the political system. 
 
 ```{r}
-
 ```
 
 * **Analysis summary**: 
@@ -132,138 +131,79 @@ nonvoters_edu
 ```
 ### Sentence 2
 
-* **Sentence text**: [Paste in sentence to engineer here]
+* **Sentence text**: Of the three groups of voters we identified, those voters who only vote some of the time were actually the likeliest to report having stood in line for more than an hour; they were also likelier than those who vote more regularly to say they couldn’t get off work to vote.
+
+Our survey found, for instance, that occasional voters were slightly more likely than frequent voters to have a long-term disability (8 percent vs. 5 percent), and nonvoters were even more likely to fall into this category (12 percent). Black and Hispanic voters are also more likely to experience hurdles, perhaps in part because there tend to be fewer polling places in their neighborhoods. About 24 percent of Black respondents said that they had to stand in line for more than an hour while voting, and Hispanic respondents were more likely to say they had trouble accessing the polling place or couldn’t get off work in time to vote.
+
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
 ```{r}
 # Put code to reverse engineer sentence here
-# Display results of code below this codeblock
-```
-
-### Sentence 3
-
-* **Sentence text**: [Paste in sentence to engineer here]
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
-
-```{r}
-# Put code to reverse engineer sentence here
-# Display results of code below this codeblock
-```
-
-### Sentence 4
-
-* **Sentence text**: [Paste in sentence to engineer here]
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
-
-```{r}
-# Put code to reverse engineer sentence here
-# Display results of code below this codeblock
-```
-
-### Sentence 5
-
-* **Sentence text**: [Paste in sentence to engineer here]
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
-
-```{r}
-# Put code to reverse engineer sentence here
-# Display results of code below this codeblock
-```
-
--30-
-
-
-```{r}
-# Put code to reverse engineer sentence here
-nonvoters_categories <- nonvoters_data %>%
-  mutate(
-    Q30 = case_when(
-      Q30 >= 3 ~ "neither political party",
-      Q30 == 1 ~ "Republican",
-      Q30 == 2 ~ "Democrat",
-      )) %>%
-  mutate(
-    ppage = case_when(
-      ppage <= 24 ~ "22-24",
-      ppage > 24 ~"older than 24") )
-nonvoters_categories %>%
-  summarize(income_cat, educ, Q30, voter_category, ppage)
-
-# Display results of code below this codeblock
-
-```
-
-```{r}
-nonvoters_total <- nonvoters_categories %>%
-  group_by(voter_category) %>%
+never_disability_voters <- nonvoters_data %>%
+  group_by(Q10_1,voter_category) %>%
   filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+  arrange(desc(percent))
+never_disability_voters
+# Display results of code below this codeblock
+```
+
+
+```{r}
+sporadic_voters_total <- 2574
+always_voters_total <- 1811
+```
+```{r}
+always_disability_voters <- nonvoters_data %>%
+  group_by(Q10_1,voter_category) %>%
+  filter(voter_category == "always") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/always_voters_total)*100) %>%
+arrange(desc(percent))
+always_disability_voters
+```
+
+```{r}
+sporadic_disability_voters <- nonvoters_data %>%
+  group_by(Q10_1,voter_category) %>%
+  filter(voter_category == "sporadic") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/sporadic_voters_total)*100) %>%
+arrange(desc(percent))
+sporadic_disability_voters
+```
+
+Second sentence
+
+```{r}
+black_voters <- nonvoters_data %>%
+  group_by(race) %>%
+  filter(race == "Black") %>%
   summarise(count = n())
-nonvoters_total
+black_voters <- 932
 ```
 
 ```{r}
-total_nonvoters <- 1451
-```
-```{r}
-rarely_never <- nonvoters_data %>%
-  group_by(ppage,voter_category,income_cat) %>%
-  filter(voter_category == "rarely/never",
-         income_cat == "Less than $40k") %>% 
-  summarise(count = n()) %>% 
-arrange(desc(count))
-```
-
-```{r}
-nonvoters_party <- nonvoters_categories %>%
-  group_by(Q30,voter_category) %>%
-  filter(voter_category == "rarely/never") %>%
+line_voters <- nonvoters_data %>%
+  group_by(Q18_8,race) %>%
+  filter(race == "Black") %>%
   summarise(count = n()) %>%
-    mutate(percent = (count/total_nonvoters)*100) %>%
+  mutate(percent = (count/black_voters)*100) %>%
 arrange(desc(percent))
-nonvoters_party
+line_voters
+```
+
+
+
+
+```{r}
 ```
 
 ```{r}
-nonvoters_income <- nonvoters_categories %>%
-  group_by(income_cat,voter_category) %>%
-  filter(voter_category == "rarely/never") %>%
-  summarise(count = n()) %>%
-  mutate(percent = (count/total_nonvoters)*100) %>%
-arrange(desc(percent))
-nonvoters_income
-```
-
-```{r}
-nonvoters_age <- nonvoters_categories %>%
-  group_by(ppage,voter_category) %>%
-  filter(voter_category == "rarely/never") %>%
-  summarise(count = n()) %>%
-  mutate(percent = (count/total_nonvoters)*100) %>%
-arrange(desc(percent))
-nonvoters_age
-```
-
-```{r}
-nonvoters_edu <- nonvoters_categories %>%
-  group_by(educ,voter_category) %>%
-  filter(voter_category == "rarely/never") %>%
-  summarise(count = n()) %>%
-  mutate(percent = (count/total_nonvoters)*100) %>%
-arrange(desc(percent))
-nonvoters_edu
-```
-
-### Sentence 2
-
-* **Sentence text**: [Paste in sentence to engineer here]
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
-
-```{r}
-# Put code to reverse engineer sentence here
-
-# Display results of code below this codeblock
 
 ```
+
 
 ### Sentence 3
 
@@ -272,9 +212,7 @@ nonvoters_edu
 
 ```{r}
 # Put code to reverse engineer sentence here
-
 # Display results of code below this codeblock
-
 ```
 
 ### Sentence 4
@@ -284,9 +222,7 @@ nonvoters_edu
 
 ```{r}
 # Put code to reverse engineer sentence here
-
 # Display results of code below this codeblock
-
 ```
 
 ### Sentence 5
@@ -296,9 +232,7 @@ nonvoters_edu
 
 ```{r}
 # Put code to reverse engineer sentence here
-
 # Display results of code below this codeblock
-
 ```
 
 -30-

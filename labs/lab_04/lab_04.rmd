@@ -41,15 +41,11 @@ cleaned_rep_precinct_results <- Rep_precinct_results %>%
   clean_names()
 Clean_Precinct_voting_locations <- read_csv('data/precinct_voting_locations.csv') %>% clean_names()
 
-
-
 ```
 
 ```{r}
 demrep_preres_combined <- bind_rows(list(cleaned_dem_precinct_results, cleaned_rep_precinct_results))
 View(demrep_preres_combined)
-
-
 
 ```
 

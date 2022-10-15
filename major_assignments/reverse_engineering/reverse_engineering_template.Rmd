@@ -131,11 +131,13 @@ nonvoters_edu
 ```
 ### Sentence 2
 
-* **Sentence text**: Of the three groups of voters we identified, those voters who only vote some of the time were actually the likeliest to report having stood in line for more than an hour; they were also likelier than those who vote more regularly to say they couldn’t get off work to vote.
-
+* **Sentence text**: 
 Our survey found, for instance, that occasional voters were slightly more likely than frequent voters to have a long-term disability (8 percent vs. 5 percent), and nonvoters were even more likely to fall into this category (12 percent). Black and Hispanic voters are also more likely to experience hurdles, perhaps in part because there tend to be fewer polling places in their neighborhoods. About 24 percent of Black respondents said that they had to stand in line for more than an hour while voting, and Hispanic respondents were more likely to say they had trouble accessing the polling place or couldn’t get off work in time to vote.
 
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+* **Analysis summary**: We were able to confirm the data on disability, showing that the nonvoters had the largest percentage of people receiving long-term disability. We did wonder about the data, because the survey also asked if people had any chronic illnesses. Depending on how you define disability, people who have chronic illnesses and don't receive long-term disability, should count as well. In the article itself, we think the authors should have made clear how narrow disability is defined in the data.
+
+We weren't able to replicate the second percentage, that about 24% of Black respondents said they had to stand in line for more than an hour while voting. According to our calculations, it is even higher at 27%. Also, the survey asks if "you or any members of your household" had to wait in line for more than 1 hour - the article doesn't differentiate.
+
 
 ```{r}
 # Put code to reverse engineer sentence here
@@ -194,16 +196,12 @@ arrange(desc(percent))
 line_voters
 ```
 
-
-
-
 ```{r}
 ```
 
 ```{r}
 
 ```
-
 
 ### Sentence 3
 

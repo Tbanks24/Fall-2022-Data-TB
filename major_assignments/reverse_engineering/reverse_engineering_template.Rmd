@@ -205,13 +205,82 @@ line_voters
 
 ### Sentence 3
 
-* **Sentence text**: [Paste in sentence to engineer here]
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+* **Sentence text**: For one thing, occasional voters (80 percent) and nonvoters (68 percent) are less likely to believe that politicians have an impact on their lives than consistent voters (84 percent). Similarly, people who vote sometimes (78 percent) or rarely (60 percent) are much less likely than voters who vote almost all of the time (85 percent) to say that there are people in politics who look like them — which could in turn make it harder to trust or identify with the candidates running for office.
+
+
+* **Analysis summary**: From the question text for Q4, we assumed that respondents would be grouped as saying politicians did have an impact on their lives if they answered "A significant impact", "Somewhat of an impact" or "Just a slight impact". This produces the wrong data. Apparently the writers grouped "Just a slight impact" in with "No impact at all" - which seems questionable. Doing that we were able to get closer to the numbers in the sentence, but still didn't get the exact same values (68 vs 71 for nonvoters, for example).
+
+The text references at least 4 different voter categories (sometimes, rarely, almost all of the time, nonvoters). The data only gives us 3 categories (rarely/never, sporadic, always). We don't have a way to differentiate between people who vote sometimes and those who rarely in our dataset. Our results for people who almost always vote varies slightly (85 vs 86%). We cant' say why.
+
 
 ```{r}
 # Put code to reverse engineer sentence here
 # Display results of code below this codeblock
+
 ```
+
+```{r}
+impact_looklike <- nonvoters_data %>%
+  mutate(Q4_1 = case_when(
+      Q4_1 < 3 ~ "yes impact",
+      Q4_1 > 2 ~ "no impact")) %>%
+  mutate(Q6 = case_when(
+      Q6 < 4 ~ "yes look",
+      Q6 == 4 ~ "no look"))
+```
+
+```{r}
+nonvotes_impact <- impact_looklike %>%
+  group_by(Q4_1,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvotes_impact
+```
+
+```{r}
+sporadic_impact <- impact_looklike %>%
+  group_by(Q4_1,voter_category) %>%
+  filter(voter_category == "sporadic") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/sporadic_voters_total)*100) %>%
+arrange(desc(percent))
+sporadic_impact
+```
+
+
+```{r}
+always_impact <- impact_looklike %>%
+  group_by(Q4_1,voter_category) %>%
+  filter(voter_category == "always") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/always_voters_total)*100) %>%
+arrange(desc(percent))
+always_impact
+```
+
+```{r}
+nonvotes_looklike <- impact_looklike %>%
+  group_by(Q6,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+arrange(desc(percent))
+nonvotes_looklike
+```
+
+
+```{r}
+always_looklike <- impact_looklike %>%
+  group_by(Q6,voter_category) %>%
+  filter(voter_category == "always") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/always_voters_total)*100) %>%
+arrange(desc(percent))
+always_looklike
+```
+
 
 ### Sentence 4
 

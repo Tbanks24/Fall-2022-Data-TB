@@ -258,6 +258,11 @@ Re-state at the end so that it shows you the table again.
 
 ***When Read CSV doesn't work, go to gear wheel icon and press set as working directory. 
 
+***How to use renanme-
+
+rename(new_name = old_name)
+
+
 
 # cleaning function
 cleaned_conowingo <- conowingo %>%

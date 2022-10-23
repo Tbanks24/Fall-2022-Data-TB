@@ -284,7 +284,13 @@ always_looklike
 
 ### Sentence 4
 
-* **Sentence text**: [Paste in sentence to engineer here]
+* **Sentence text**: This year, some of these occasional voters are also dealing with pandemic-specific challenges that could make voting less of a priority. For instance, people who vote more irregularly are a little more likely than those who almost always vote to have lost a job in the past year (13 percent vs. 10 percent) or to have worried about expenses (21 percent vs. 16 percent), although those who almost never vote are even likelier than those who sometimes vote to have reported these experiences.
+
+
+
+
+
+
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
 ```{r}
@@ -294,12 +300,44 @@ always_looklike
 
 ### Sentence 5
 
-* **Sentence text**: [Paste in sentence to engineer here]
+* **Sentence text**: Thompson thinks a lot of the problems on Election Day come down to logistical issues that could be fixed. Others agreed that there’s more the U.S. could be doing to encourage people to vote. Fifty-one percent of respondents thought that making Election Day a national holiday would allow more people to cast a ballot. Similar shares agreed that more information about the candidates from unbiased sources (51 percent) or early in-person voting (52 percent) would help, too.
+
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+
+
+```{r}
+Total_Respondents <- 5836
+```
+
 
 ```{r}
 # Put code to reverse engineer sentence here
+Holidays <- nonvoters_data %>% 
+  group_by(Q19_3) %>% 
+  filter(Q19_3 == "1") %>% 
+  summarise(count = n()) %>% 
+  mutate(percent == (count/Total_Respondents)*100)
+Holidays
 # Display results of code below this codeblock
 ```
+nonvoters_total <- nonvoters_categories %>%
+  group_by(voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n())
+nonvoters_total
+
+
+
+
+never_disability_voters <- nonvoters_data %>%
+  group_by(Q10_1,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+  arrange(desc(percent))
+never_disability_voters
+
+
+
 
 -30-

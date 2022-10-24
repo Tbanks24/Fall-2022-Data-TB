@@ -316,26 +316,27 @@ Holidays <- nonvoters_data %>%
   group_by(Q19_3) %>% 
   filter(Q19_3 == "1") %>% 
   summarise(count = n()) %>% 
-  mutate(percent == (count/Total_Respondents)*100)
+  mutate(percent = (count/Total_Respondents)*100)
 Holidays
 # Display results of code below this codeblock
 ```
-nonvoters_total <- nonvoters_categories %>%
-  group_by(voter_category) %>%
-  filter(voter_category == "rarely/never") %>%
-  summarise(count = n())
-nonvoters_total
+```{r}
+Unbaised <- nonvoters_data %>% 
+  group_by(Q19_2) %>% 
+  filter(Q19_2 == "1") %>% 
+  summarise(count = n()) %>% 
+  mutate(percent = (count/Total_Respondents)*100)
+Unbaised
+```
+```{r}
+Early_inperson <- nonvoters_data %>% 
+  group_by(Q19_6) %>% 
+  filter(Q19_6 == "1") %>% 
+  summarise(count = n()) %>% 
+  mutate(percent = (count/Total_Respondents)*100)
+Early_inperson
+```
 
-
-
-
-never_disability_voters <- nonvoters_data %>%
-  group_by(Q10_1,voter_category) %>%
-  filter(voter_category == "rarely/never") %>%
-  summarise(count = n()) %>%
-  mutate(percent = (count/total_nonvoters)*100) %>%
-  arrange(desc(percent))
-never_disability_voters
 
 
 

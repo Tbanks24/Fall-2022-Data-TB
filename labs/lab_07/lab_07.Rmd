@@ -1,0 +1,251 @@
+---
+title: "lab_07"
+author: "derek willis"
+date: "10/21/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## You will need
+
+* A Census API key
+
+## Load libraries and establish settings
+
+You'll need to load two packages for this: the tidyverse and tidycensus.
+
+**Task** load these two packages
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+# Load the libraries you'll need
+library(tidyverse)
+library(tidycensus)
+
+```
+
+## Setup Census API
+
+You'll need your Census API Key:
+
+**Task** set your API Key if you haven't already
+
+```{r echo=FALSE}
+census_api_key("YOUR API KEY", overwrite=TRUE)
+```
+
+## Load and view ACS variables
+
+You'll also need to load the list of American Community Survey variables from the 2020 5-year estimates so you can identify the codes you need:
+
+**Task** load the variables from the 2020 5-year ACS and save them to a dataframe
+
+```{r}
+acs5 <- load_variables(2020,"acs5")
+```
+
+## Answer questions
+
+**Q1** What is the Maryland jurisdiction with the lowest median age, according to the ACS 2020 5-year estimates? You will need to find the variable for median age first.
+**A1**
+ Prince George's County in Maryland has the lowest median age. 
+
+```{r}
+acs5 <- load_variables(2020,"acs5")
+
+md <- get_acs(geography = "county",
+              variables = c(mediage = "B01002_001"),
+              state = "MD",
+              year = 2020)
+
+md <- md %>% arrange((estimate)) %>% top_n(20, estimate)
+
+md
+```
+
+```{r}
+```
+
+**Q2** Which Maryland counties have a median age of at least 50? You can use the dataframe you just made to answer this, but you must write code to display only those counties with a median age of at least 50.
+**A2** 
+
+```{r}
+mdUnder50 <- md %>% 
+  filter(estimate >= 50) %>% 
+arrange(desc(estimate)) 
+ # amount >= 10 & amount <= 25 ~ "Between $10 and $25",
+```
+
+Both Talbot County and Worcester County have a median age of at least 50. 
+
+Note: Don't use quotes when filtering with numbers for any of it, column name or number. 
+
+**Q3** We're interested in knowing which Maryland counties have the highest percentage of 5-17 year-olds who speak Spanish at home and *also* speak English fluently. Start with the code you wrote for Q1 and alter it to show the total population of 5-17 year-olds by county. Then create a second dataframe to show the number of 5-17 year-olds by county living in homes where Spanish is spoken but who speak English "very well" according to the ACS. To do this, you will need to find the ACS variables that represent those subjects. HINT: the phrase "very well" shows up in multiple variables - you want the one that doesn't include other factors like citizenship. 
+
+For each dataframe, rename the `estimate` column to a meaningful name you've given the ACS variable, remove the `variable` columns in each using select and then join them on GEOID and NAME. Then you can add a column to calculate the percentage of the total 5-17 population that speaks Spanish at home.
+
+Which county has the highest percentage of 5-17 year-olds who speak Spanish at home and also speak English very well?
+
+Right variable for part 1: B16003_002 Estimate!!Total:!!5 to 17 years:
+
+Variable where spanish and English are spoken very well: B06007_004  (Estimate!!Total:!!Speak Spanish:!!Speak English "very..) 
+
+
+
+Other Numbers:
+
+Speaking spanish:  B16004_005' Estimate!!Total:!!5 to 17 years:!!Speak Spanish:!!Speak English very well. 
+
+Population: B16004_002' Estimate!!Total:!!5 to 17 years:
+
+**A3** Prince George's County has the largest percentage of 5-17-year-olds that speak Spanish at home and English very well.
+
+top_n(20, estimate) %>%
+
+```{r}
+acspop <- get_acs(geography = "county",
+              variables = c(total_pop = "B16004_005"),
+              state = "MD",
+              year = 2020)
+
+acspop <- acspop %>% arrange((estimate)) %>% rename("population" = "estimate") %>% select(GEOID, NAME, population, moe)
+
+acspop
+```
+```{r}
+SpanEngwell <- get_acs(geography = "county",
+              variables = c(total_pop = "B16004_002"),
+              state = "MD",
+              year = 2020)
+
+SpanEngwell <- SpanEngwell %>% arrange((estimate)) %>% rename("population" = "estimate") %>% select(GEOID, NAME, population, moe)
+
+SpanEngwell
+
+```
+```{r}
+#Combined <- SpanEngwell %>% left_join(acspop, by=c("GEIOD", "NAME"))
+
+```
+
+```{r}
+#alldata <- SpanEngwell %>% inner_join(acspop)
+```
+
+```{r}
+Combined3 <- SpanEngwell %>%
+  inner_join(acspop, by=c("GEOID", "NAME"))
+```
+
+```{r}
+Newcomb <- Combined3 %>% 
+  mutate(percent = (population.y/population.x)*100) %>% 
+  arrange(desc(percent))
+```
+
+
+***Join then find percents.
+
+
+**Q4** Given the counties with the largest percentage of 5-17 year-olds that speak Spanish at home, which county stands out to you in the data as different from the others? How would you describe the top 5 counties? How would you describe Garrett County's numbers?
+
+**A4** Both Prince George's and Montgomery Counties have the most 5-17 year-olds that speak Spanish at home. These are two of the bigger counties in Maryland, so those numbers make sense. Prince George's County is also home to UMD, which is an institution that attracts a lot of diverse students from all across the county. SO I think that also could play a role in the numbers.Frederick County is also in the top 10 highest populated counties. Garrett County has the least number of 5-17 year-olds that speak Spanish in the home with 0.63%. This number isn't as surprising, considering that the county is one of the lowest populated in Maryland. The fact that both Talbot and Dorchester are in the top five is surprising as they are in the bottom half of the most populous states. I think it could be interesting to look at the correlation between job opportunities and this data to see if there is any correlation. 
+
+
+
+
+**Q5** Pennsylvanians are currently requesting and submitting mail ballots for the November election. You'd like to know more about the people who live in the areas sending in mail ballots. Read in the `zip_totals.csv` file in the data folder containing the number of returned mail ballots per zip code. Then create a dataframe of Pennsylvania ZCTAs that include the following variables from the 2019 ACS: total population and median income. You will need to add `output = "wide"` to the get_acs function so that you get columns for those two variables' estimates and margins of error. 
+
+```{r}
+Zip_total <- read_csv ('data/pa_zip_totals.csv')
+```
+
+```{r}
+getwd()
+```
+
+Join the ZCTA dataframe to the zip totals dataframe and calculate a per capita rate for mail ballots per 100 population in each ZCTA, and write code to answer the following questions?
+
+* Which zip code *that has returned at least 100 mail ballots* has the highest per capita rate? 
+
+15001
+
+* Where is that zip code and what does Census Reporter say about its demographics? 
+
+The zip code overs Beaver County, PA, Pittsburgh, PA Metro Area,Pennsylvania.The population in the area is 31,129. It is 60.3 square miles and 515.8 people per square mile. The median age was 48.2 
+
+* For zip codes with a per capita rate of at least 10 returned ballots per 100 people, how many have median incomes of at least $100,000? 
+
+I have one with a median income of $100,000. Zip code 18912
+
+* How many have median incomes less than the state figure of $68,957? 
+
+I have 1676 with less than a median income of 68,957
+
+1, Zip Code 15142
+
+```{r}
+Sixity <- Comb4 %>% 
+  filter(MedInE < 68,957)
+
+```
+
+* What's the most interesting one from this last result?
+
+I think that 18913 is the most interesting result.
+
+B01003_001- Total population
+	
+B06011_001 - Median Income 
+
+**A5**
+
+```{r}
+Pa <- get_acs(geography = "zcta",
+              variables = c(Poptotal = "B01003_001", MedIn = "B06011_001"),
+              state = "PA",
+              year = 2019, output = "wide")
+```
+
+```{r}
+Pa <- Pa %>% arrange(desc(PoptotalE))
+
+Pa
+
+```
+Zip = GEOID
+
+Mutate for new column for ballot (count/totalpopulation)*100
+
+```{r}
+Comb4 <- Zip_total %>%
+  inner_join(Pa, by=c("zip" = "GEOID")) %>% 
+  mutate(ballot = (count/PoptotalE)*100)
+```
+
+```{r}
+MedIN <- Comb4 %>% 
+filter(MedInE >= 100000)
+
+
+```
+
+```{r}
+Less <- Comb4 %>% 
+  filter(MedInE <= 68957) %>% 
+  arrange(desc(MedInE))
+  
+```
+
+```{r}
+Ballot10 <- Comb4 %>% 
+  filter(ballot >= 10) %>% 
+  arrange(desc(MedInE))
+
+
+```

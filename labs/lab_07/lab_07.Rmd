@@ -187,8 +187,6 @@ I have one with a median income of $100,000. Zip code 18912
 
 I have 1676 with less than a median income of 68,957
 
-1, Zip Code 15142
-
 ```{r}
 Sixity <- Comb4 %>% 
   filter(MedInE < 68,957)

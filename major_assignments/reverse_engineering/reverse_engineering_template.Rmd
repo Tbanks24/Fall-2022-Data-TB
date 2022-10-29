@@ -286,9 +286,65 @@ always_looklike
 
 * **Sentence text**: This year, some of these occasional voters are also dealing with pandemic-specific challenges that could make voting less of a priority. For instance, people who vote more irregularly are a little more likely than those who almost always vote to have lost a job in the past year (13 percent vs. 10 percent) or to have worried about expenses (21 percent vs. 16 percent), although those who almost never vote are even likelier than those who sometimes vote to have reported these experiences.
 
+```{r}
+never_votes_job <- nonvoters_data %>%
+  group_by(Q11_1,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+  arrange(desc(percent))
+never_votes_job
+```
 
+```{r}
+sporadic_votes_job <- nonvoters_data %>%
+  group_by(Q11_1,voter_category) %>%
+  filter(voter_category == "sporadic") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+  arrange(desc(percent))
+sporadic_votes_job
+```
 
+```{r}
+always_votes_job <- nonvoters_data %>%
+  group_by(Q11_1,voter_category) %>%
+  filter(voter_category == "always") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+  arrange(desc(percent))
+always_votes_job
+```
 
+```{r}
+never_votes_worry <- nonvoters_data %>%
+  group_by(Q11_5,voter_category) %>%
+  filter(voter_category == "rarely/never") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+  arrange(desc(percent))
+never_votes_worry
+```
+
+```{r}
+sporadic_votes_worry <- nonvoters_data %>%
+  group_by(Q11_5,voter_category) %>%
+  filter(voter_category == "sporadic") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+  arrange(desc(percent))
+sporadic_votes_worry
+```
+
+```{r}
+always_votes_worry <- nonvoters_data %>%
+  group_by(Q11_5,voter_category) %>%
+  filter(voter_category == "always") %>%
+  summarise(count = n()) %>%
+  mutate(percent = (count/total_nonvoters)*100) %>%
+  arrange(desc(percent))
+always_votes_worry
+```
 
 
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]

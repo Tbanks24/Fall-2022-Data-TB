@@ -347,7 +347,12 @@ always_votes_worry
 ```
 
 
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+* **Analysis summary**: We calculated the percentage of voters in each category that have lost their job in the past year and couldn't exactly replicate the data in the sentence. According to our calculation, 12.8% of people who vote sporadically have lost their job in the past year - which rounds up to the percentage in the sentence. It is confusing, however, that the voter group is called "people who vote more irregularly". The terms change throughout the article. We were able to reproduce the results for people who always vote as well.
+
+We then calculated the percentages of people saying they had worried about expenses according to voter category and were able to reproduce the results in the sentence for those who vote sporadically (21%). Our results for those who always vote differ slightly (15.41% vs 16%).
+
+We thought it was interesting how the sentence compares sporadic and consistent voters, but don't give specific figures for nonvoters, which is why we also calculated results for this group.
+
 
 ```{r}
 # Put code to reverse engineer sentence here

@@ -45,8 +45,6 @@ Clean_ab <- Md_absentee %>%
 Clean_ab
 ```
 
-
-
 **Q1.** Which county has the highest percentage of total absentee ballots returned of total ballots sent? Make a bar chart of the top 10 counties. Your bar chart must have:
 
 * A clear title that states the main idea/finding

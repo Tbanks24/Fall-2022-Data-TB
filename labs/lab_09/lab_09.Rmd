@@ -35,7 +35,11 @@ Let's explore the election results from last night and make some maps!
 
 **Q1.** Make a county-level map of Maryland's results for governor using `md_gov_county.csv` in the data folder, calculating the difference between Wes Moore's percentage of the total votes and Dan Cox's percentage of the total votes and displaying that percentage difference on the map. What is the story here, and what is the county with the most interesting results?
 
-**A1.**  Garrett County has the biggest difference between the candidates percent of the total votes. This county would probably produce the most interesting story. The difference is -63.1%, which means that Cox has a 63.1% advanatge in the total votes in Garrett County than Moore. Cox makes up 79.8% of the total votes in that county. It would be interesting to talk to voters and find out why they're in such support of Cox.   
+**A1.**  Prince Georges County has the biggest difference between the candidates percent of the total votes at 78.7% followed by Baltimore City at 78.3%.
+
+Those two counties that would probably produce the most interesting story. The difference in pg is 78.7%, which means that Moore has a 78.7% advantage in the total votes in PG County than Cox. It would be interesting to talk to voters and find out why so many of them are supporting Moore as opposed to Cox. Maybe a survey could be done to see if they're particular polices that residents there do not agree with that's leading them to side with Moore.
+
+I also think that Garrett County would also make an interesting story for a similar reason, with the differences in percents between the two competitors vote total being -63.05%. That's the county where Cox had the biggest advantage. It's different from all the others because it's one of the only ones where Cox has an advantage over Moore. Finding out what separates voter's perspectives in Garrett and PG County would be interesting.
 
 ```{r}
 Md_maryland_county <- read_csv("data/md_gov_county.csv")
@@ -57,7 +61,6 @@ Clean_mdCounty <- Md_maryland_county %>%
 Clean_mdCounty %>% 
   head()
 ```
-
 
 ```{r}
 MdCanCountyTotal <- Clean_mdCounty %>% 
@@ -118,8 +121,10 @@ ggplot() +
 **Q2.** Make another map showing the difference between Dan Cox's county-level performance in 2022 and Larry Hogan's in 2018, using percentages to compare the two as you did in Q1. You can use the dataframe you initially loaded for Q1, and you'll need to load the 2018 governor results in the data folder and join them to it before proceeding. Are there any counties where Cox got a higher percentage than Hogan? How would you describe the map showing the Hogan-Cox difference?
 
 Also answer this: is a map the best way to present this data? What else could you make that might convey more information?
+ 
+**A2.** No, there is not a county where Cox had a higher percentage of the vote than Hogan. The map shows that the counties with the biggest separation in the percentages of total votes received by the candidates are Howard (-26.5%) and Talbot (-27.7) counties. The counties with less seperation in those percentages are Somerset (-1.98%) and Garrett (-6.23%). Hogan did not out perform Cox in those two counties as much in 2018 as he did with Howard and Talbot. 
 
-**A2.** 
+I think a map is an okay way to show this information. But I think there needs to be a way to show that both these candidates ran in two different years so it doesn't confuse people. If this were an interactive map, I would include information like on the voting totals of each of the candidates in each county. So, for example, if you put your cursor over a county, a pop up box would allow you to see the voting totals of each county for each candidate along with the percentage difference. 
 
 ```{r}
 Select <- Join2218 %>% 
@@ -216,18 +221,99 @@ ggplot() +
   theme_minimal()
 ```
 
+**Q3** Which county has the highest percentage of mail ballots remaining to be counted? Using the `mail_remaining.csv` file in the data folder, calculate the percentage of mail ballots remaining, then map a county map of those percentages. Looking at both the map and the data, are there counties where the candidate currently leading the governor's race could, in theory, change? 
 
+```{r}
+mail_remaining <- read.csv("data/mail_remaining.csv")
+```
 
-**Q3** Which county has the highest percentage of mail ballots remaining to be counted? Using the `mail_remaining.csv` file in the data folder, calculate the percentage of mail ballots remaining, then map a county map of those percentages. Looking at both the map and the data, are there counties where the candidate currently leading the governor's race could, in theory, change?
+```{r}
+Permail_remaining <- mail_remaining %>% 
+  mutate(PerRemain = (Remaining/Total_Returned)*100)
+```
+
+```{r}
+Map_Remaining <- md_counties %>% left_join(Permail_remaining, by= "GEOID")
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=Map_Remaining, aes(fill= PerRemain)) +
+  scale_colour_viridis_b(option="magma") +
+  theme_minimal()
+```
 
 **A3** 
+There are 14 Maryland Counties that have 100% of the mail-in ballots left to count: Worcester, Cecil, Baltimore County, Caroll, Dorechester, Anne Arundel,Garrett, Queen Anne's, Wicomico, Somerset, Harford, Kent, Charles, and Caroline. 
 
+I think Anne Arundel there could be a possiblity for the person leading the race to change. The county has 41918 mail-in ballots left to count. Cox currently has 70572 and Moore has 74981 votes.The difference between the total votes right now is small enough for the gap to be closed. I think the same could be said for Baltimore County (63375 mail-in votes left). Those are probably the two most realistic chances for the leader change to happen. 
 
 **Q4.** Choose your own map adventure! In the data folder I've included county-level results for several other 2022 contests, including the Comptroller, Attorney General and the marijuana legalization amendment. I've also added the 2020 presidential results by county. Using one of the 2022 races that we haven't already used and at least one other contest for comparison, make a county-level map showing what you think is the most interesting aspect of that data, and describe the results in terms of a possible story. You can bring in other data, such as Census information, if you like.
 
 **A4.**  
 
-```{r}
+I looked at the data sets for the Maryland 2022 Ag race and the 2020 presidential elections. I wanted to see how Republican Ag nominee Peroutka performed in Maryland counties compared to Trump in 2020. I calculated the percentage of votes that Peroutka and Trump accounted for in their respective races and then calculated the difference in percents. 
 
+From this, I learned that Peroutka received more votes for Ag than Trump during the 2020 presidential race in every Maryland county. However, this number does not show the entire picture. Peroutka only had to go up against one other person while Trump had four other people running with him. This could account for the smaller number of votes to some extent, as votes were taken a way from Trump and spread out among more candidates than just one. The greatest difference in the percentages was in Somerset coutny at -10%.
+
+Still, I think comparing Peroutka election results to Trump could make for an interesting story idea, after calculations are done kind of account for the fact that Trump has more people to compete against. 
+
+```{r}
+md_ag_county <- read_csv("data/md_ag_county.csv")
+md_pres_county_20 <- read_csv("data/md_pres_county_20.csv")
 ```
 -30-
+
+```{r}
+TotalAg <- md_ag_county %>% 
+  rename(Write_ins = `Write-ins`)
+```
+
+```{r}
+TwoTotalAg <- TotalAg %>% 
+  mutate(Total = (Peroutka + Brown + Write_ins)) %>% 
+  mutate(Per_P = (Peroutka/Total)*100)
+```
+
+```{r}
+PresTotal <- md_pres_county_20 %>% 
+  mutate(Total = (Trump + Biden + Jorgensen + Hawkins + Segal)) %>% 
+  mutate(PerTrump = (Trump/Total)*100)
+```
+
+Map:
+
+```{r}
+JoinTrumpPero <- TwoTotalAg %>% left_join(PresTotal, by= "GEOID")
+```
+
+```{r}
+DiffTrumpPero <- JoinTrumpPero %>% 
+  mutate(Diff = (PerTrump - Per_P))
+```
+
+
+
+
+
+```{r}
+CountyTrumpPero <- md_counties %>% left_join(DiffTrumpPero, by= "GEOID")
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=CountyTrumpPero, aes(fill= Diff)) +
+  scale_colour_viridis_b(option="magma") +
+  theme_minimal()
+```
+
+
+
+ mutate(Per_Peroutka = Peroutka/Total)
+
+mutate(total = sum(cox,moore,lashar,wallace,harding,write_ins)) %>% 
+   mutate(Percent_Hogan = (Hogan/total)*100) %>% 
+   mutate(Percent_Cox = (Cox/total)*100)
+
+
+

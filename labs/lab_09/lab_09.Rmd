@@ -1,0 +1,233 @@
+---
+title: "lab_09"
+author: "Derek Willis"
+date: "11/09/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## You will need
+
+* the tidyverse, janitor and tigris libraries
+* you might choose to use the tidycensus library for Q4 (Could use for Q3 but definetly for question 4)
+
+## Load libraries and establish settings
+
+**Task** Create a codeblock and load appropriate packages and settings for this lab.
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+# Load libraries
+library(tidyverse)
+library(janitor)
+library(tigris)
+library(tidycensus)
+```
+
+Let's explore the election results from last night and make some maps! 
+
+## Questions 
+
+**Q1.** Make a county-level map of Maryland's results for governor using `md_gov_county.csv` in the data folder, calculating the difference between Wes Moore's percentage of the total votes and Dan Cox's percentage of the total votes and displaying that percentage difference on the map. What is the story here, and what is the county with the most interesting results?
+
+**A1.**  Garrett County has the biggest difference between the candidates percent of the total votes. This county would probably produce the most interesting story. The difference is -63.1%, which means that Cox has a 63.1% advanatge in the total votes in Garrett County than Moore. Cox makes up 79.8% of the total votes in that county. It would be interesting to talk to voters and find out why they're in such support of Cox.   
+
+```{r}
+Md_maryland_county <- read_csv("data/md_gov_county.csv")
+
+```
+
+
+```{r}
+Md_maryland_county %>% 
+  glimpse
+```
+
+```{r}
+Clean_mdCounty <- Md_maryland_county %>% 
+  clean_names() 
+```
+
+```{r}
+Clean_mdCounty %>% 
+  head()
+```
+
+
+```{r}
+MdCanCountyTotal <- Clean_mdCounty %>% 
+  group_by(county) %>% 
+  mutate(total = sum(cox,moore,lashar,wallace,harding,write_ins)) 
+```
+
+```{r}
+PecrMDCounty <- MdCanCountyTotal %>% 
+ mutate(Percent_moore = (moore/total)*100) %>% 
+   mutate(Percent_cox = (cox/total)*100) %>% 
+  mutate(moorecox_diff = Percent_moore - Percent_cox)
+  
+```
+
+```{r}
+```
+
+
+```{r}
+counties <- counties()
+
+glimpse(counties)
+```
+
+```{r}
+md_counties <- counties %>%
+  filter(STATEFP == "24") %>% 
+  clean_names()
+```
+
+```{r}
+md_counties %>% 
+  glimpse
+```
+
+
+
+```{r}
+md_counties <- md_counties %>% mutate(geoid = as.double(geoid))
+
+```
+
+
+```{r}
+JoinMDCounty <- md_counties %>% left_join(PecrMDCounty, by= "geoid")
+```
+ComCurReg <- CReg20Per %>% left_join(CReg22Per, by="Counties")
+Md_counties geoid needs to be changed to dbl from character 
+
+```{r}
+ggplot() +
+  geom_sf(data=JoinMDCounty, aes(fill= moorecox_diff)) +
+  scale_colour_viridis_b(option="magma") +
+  theme_minimal()
+```
+
+**Q2.** Make another map showing the difference between Dan Cox's county-level performance in 2022 and Larry Hogan's in 2018, using percentages to compare the two as you did in Q1. You can use the dataframe you initially loaded for Q1, and you'll need to load the 2018 governor results in the data folder and join them to it before proceeding. Are there any counties where Cox got a higher percentage than Hogan? How would you describe the map showing the Hogan-Cox difference?
+
+Also answer this: is a map the best way to present this data? What else could you make that might convey more information?
+
+**A2.** 
+
+```{r}
+Select <- Join2218 %>% 
+  Select(CName, Percent_cox, PerHogan)
+```
+
+
+
+
+```{r}
+md_gov_county_18 %>% 
+  head()
+```
+
+```{r}
+md_gov_county_18 <- read_csv("data/md_gov_county_18.csv")
+```
+```{r}
+md_gov_county_18 %>% 
+  rename(Hogan18 = Hogan) %>% 
+  rename(Jealous18 = Jealous) %>% 
+  rename(Quinn18 = Quinn) %>% 
+rename(Schlakman18 = Schlakman) %>% 
+  rename(`Write-ins18` = `Write-ins`)
+```
+```{r}
+Com_Md_county <- NewCoxPer %>% left_join(PerHogan , by= "GEOID")
+```
+
+Adding percents before joining:
+
+```{r}
+NewCoxPer <- MdCanCountyTotal %>% 
+  mutate(Percent_cox = (cox/total)*100) %>% 
+  rename(GEOID = geoid)
+```
+
+```{r}
+Md18govPerTotal <- md_gov_county_18 %>% 
+  rename(Write_ins = `Write-ins`) %>% 
+  mutate(total = (Hogan + Jealous + Quinn + Schlakman + Write_ins))
+```
+
+^^^Work on sum for md gov 18...
+
+```{r}
+PerHogan <- Md18govPerTotal %>% 
+  mutate(PerHogan = (Hogan/total)*100)
+```
+
+
+```{r}
+Com_Md_county %>% 
+   mutate(total = sum(cox,moore,lashar,wallace,harding,write_ins)) %>% 
+   mutate(Percent_Hogan = (Hogan/total)*100) %>% 
+   mutate(Percent_Cox = (Cox/total)*100)
+```
+
+```{r}
+Per_Com_MdCounty <- Com_Md_county %>% 
+mutate(Percent_moore = (moore/total)*100) %>% 
+   mutate(Percent_cox = (cox/total)*100) %>% 
+  mutate(moorecox_diff = Percent_moore - Percent_cox)
+
+```
+
+<- md_counties %>% left_join(PecrMDCounty, by= "geoid")
+
+Showing the difference***Final dataframe.
+
+```{r}
+DiffComMD<- Com_Md_county %>% 
+  mutate(Percent_diff = (Percent_cox - PerHogan))
+```
+```{r}
+DiffComMD %>% 
+glimpse()
+```
+
+```{r}
+md_counties <- md_counties %>% mutate(GEOID = as.double(GEOID))
+```
+
+```{r}
+Join2218 <- md_counties %>% left_join(DiffComMD, by= "GEOID")
+```
+
+map final
+
+```{r}
+ggplot() +
+  geom_sf(data=Join2218, aes(fill= Percent_diff)) +
+  scale_colour_viridis_b(option="magma") +
+  theme_minimal()
+```
+
+
+
+**Q3** Which county has the highest percentage of mail ballots remaining to be counted? Using the `mail_remaining.csv` file in the data folder, calculate the percentage of mail ballots remaining, then map a county map of those percentages. Looking at both the map and the data, are there counties where the candidate currently leading the governor's race could, in theory, change?
+
+**A3** 
+
+
+**Q4.** Choose your own map adventure! In the data folder I've included county-level results for several other 2022 contests, including the Comptroller, Attorney General and the marijuana legalization amendment. I've also added the 2020 presidential results by county. Using one of the 2022 races that we haven't already used and at least one other contest for comparison, make a county-level map showing what you think is the most interesting aspect of that data, and describe the results in terms of a possible story. You can bring in other data, such as Census information, if you like.
+
+**A4.**  
+
+```{r}
+
+```
+-30-

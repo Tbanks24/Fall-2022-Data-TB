@@ -98,7 +98,6 @@ md_counties %>%
 ```
 
 
-
 ```{r}
 md_counties <- md_counties %>% mutate(geoid = as.double(geoid))
 
@@ -130,9 +129,6 @@ I think a map is an okay way to show this information. But I think there needs t
 Select <- Join2218 %>% 
   Select(CName, Percent_cox, PerHogan)
 ```
-
-
-
 
 ```{r}
 md_gov_county_18 %>% 

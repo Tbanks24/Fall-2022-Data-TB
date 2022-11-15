@@ -1804,21 +1804,132 @@ Registrations. [<a href="https://lobby-ethics.maryland.gov/" class="uri">https:/
 <h2>Load and Cleaning Data</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb2FkIHJlcXVpcmVkIGRhdGFcblxuTG9iYmJ5aXN0X1JlZyA8LSByZWFkX2NzdihcIlVzZXJzL3RvcnJlbmNlYmFua3MvRG9jdW1lbnRzL0dpdEh1Yi9GYWxsLTIwMjItRGF0YS1UQi9tYWpvcl9hc3NpZ25tZW50cydkYXRhL0xSZWcuY3N2XCIpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb2FkIHJlcXVpcmVkIGRhdGFcblxuIyBQYXRoIHRvIGRhdGEgc2hvdWxkIGJlIGxvYWRlZCBmcm9tIGZvbGRlciBcImRhdGFcIiBpLmUuIHJlYWRfY3N2KFwiZGF0YS9uYW1lX29mX2RhdGEuY3N2XCIpXG5cbm9uZSA8LSByZWFkX2NzdihcImRhdGEvcmVnaXN0cmF0aW9ucygxKS5jc3ZcIikgJT4lIGNsZWFuX25hbWVzKClcbmBgYCJ9 -->
 <pre class="r"><code># Load required data
 
-Lobbbyist_Reg &lt;- read_csv(&quot;Users/torrencebanks/Documents/GitHub/Fall-2022-Data-TB/major_assignments&#39;data/LReg.csv&quot;)</code></pre>
+# Path to data should be loaded from folder &quot;data&quot; i.e. read_csv(&quot;data/name_of_data.csv&quot;)
+
+one &lt;- read_csv(&quot;data/registrations(1).csv&quot;) %&gt;% clean_names()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6ICdVc2Vycy90b3JyZW5jZWJhbmtzL0RvY3VtZW50cy9HaXRIdWIvRmFsbC0yMDIyLURhdGEtVEIvbWFqb3JfYXNzaWdubWVudHMnZGF0YS9MUmVnLmNzdicgZG9lcyBub3QgZXhpc3QgaW4gY3VycmVudCB3b3JraW5nIGRpcmVjdG9yeSAoJy9Vc2Vycy90b3JyZW5jZWJhbmtzL0RvY3VtZW50cy9HaXRIdWIvRmFsbC0yMDIyLURhdGEtVEIvbWFqb3JfYXNzaWdubWVudHMnKS5cbiJ9 -->
-<pre><code>Error: &#39;Users/torrencebanks/Documents/GitHub/Fall-2022-Data-TB/major_assignments&#39;data/LReg.csv&#39; does not exist in current working directory (&#39;/Users/torrencebanks/Documents/GitHub/Fall-2022-Data-TB/major_assignments&#39;).</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMjYgQ29sdW1uczogNeKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCIsXCJcbmNociAoNSk6IEZvcm0gSUQsIExvYmJ5aXN0L1JlZ2lzdHJhbnQsIE9yZ2FuaXphdGlvbi9GaXJtLCBFbXBsb3llciwgUmVnaXMuLi5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
+<pre><code>Rows: 26 Columns: 5── Column specification ─────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (5): Form ID, Lobbyist/Registrant, Organization/Firm, Employer, Regis...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHdvIDwtIHJlYWRfY3N2KFwiZGF0YS9yZWdpc3RyYXRpb25zKDIpLmNzdlwiKSAlPiUgY2xlYW5fbmFtZXMoKVxuYGBgIn0= -->
+<pre class="r"><code>two &lt;- read_csv(&quot;data/registrations(2).csv&quot;) %&gt;% clean_names()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMzYwMiBDb2x1bW5zOiA14pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICg1KTogRm9ybSBJRCwgTG9iYnlpc3QvUmVnaXN0cmFudCwgT3JnYW5pemF0aW9uL0Zpcm0sIEVtcGxveWVyLCBSZWdpcy4uLlxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
+<pre><code>Rows: 3602 Columns: 5── Column specification ─────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (5): Form ID, Lobbyist/Registrant, Organization/Firm, Employer, Regis...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGhyZWUgPC0gcmVhZF9jc3YoXCJkYXRhL3JlZ2lzdHJhdGlvbnMoMykuY3N2XCIpICU+JSBjbGVhbl9uYW1lcygpXG5gYGAifQ== -->
+<pre class="r"><code>three &lt;- read_csv(&quot;data/registrations(3).csv&quot;) %&gt;% clean_names()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMzUyMCBDb2x1bW5zOiA14pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICg1KTogRm9ybSBJRCwgTG9iYnlpc3QvUmVnaXN0cmFudCwgT3JnYW5pemF0aW9uL0Zpcm0sIEVtcGxveWVyLCBSZWdpcy4uLlxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
+<pre><code>Rows: 3520 Columns: 5── Column specification ─────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (5): Form ID, Lobbyist/Registrant, Organization/Firm, Employer, Regis...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm91cjwtIHJlYWRfY3N2KFwiZGF0YS9yZWdpc3RyYXRpb25zKDQpLmNzdlwiKSAlPiUgY2xlYW5fbmFtZXMoKVxuYGBgIn0= -->
+<pre class="r"><code>four&lt;- read_csv(&quot;data/registrations(4).csv&quot;) %&gt;% clean_names()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMzgyMiBDb2x1bW5zOiA14pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICg1KTogRm9ybSBJRCwgTG9iYnlpc3QvUmVnaXN0cmFudCwgT3JnYW5pemF0aW9uL0Zpcm0sIEVtcGxveWVyLCBSZWdpcy4uLlxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
+<pre><code>Rows: 3822 Columns: 5── Column specification ─────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (5): Form ID, Lobbyist/Registrant, Organization/Firm, Employer, Regis...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZml2ZSA8LSByZWFkX2NzdihcImRhdGEvcmVnaXN0cmF0aW9ucyg1KS5jc3ZcIiklPiUgY2xlYW5fbmFtZXMoKVxuYGBgIn0= -->
+<pre class="r"><code>five &lt;- read_csv(&quot;data/registrations(5).csv&quot;)%&gt;% clean_names()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMTg4NSBDb2x1bW5zOiA14pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICg1KTogRm9ybSBJRCwgTG9iYnlpc3QvUmVnaXN0cmFudCwgT3JnYW5pemF0aW9uL0Zpcm0sIEVtcGxveWVyLCBSZWdpcy4uLlxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
+<pre><code>Rows: 1885 Columns: 5── Column specification ─────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (5): Form ID, Lobbyist/Registrant, Organization/Firm, Employer, Regis...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>**rbind is how you combine multiple dataframes.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDbGVhbiByZXF1aXJlZCBkYXRhIGFuZCBwcmVwYXJlIGZvciBhbmFseXNpcyBpZiBuZWVkZWQuIFxuXG50b3RhbF9yZWdpc3RyYXRpb25zIDwtIHJiaW5kKG9uZSwgdHdvLCB0aHJlZSwgZm91ciwgZml2ZSlcbndyaXRlX2Nzdih0b3RhbF9yZWdpc3RyYXRpb25zLCBcImRhdGEvdG90YWxfcmVnaXN0cmF0aW9ucy5jc3ZcIilcblxuY2xlYW5fdG90YWxfcmVnaXN0cmF0aW9ucyA8LSByZWFkX2NzdihcImRhdGEvY2xlYW5fdG90YWxfcmVnaXN0cmF0aW9ucy5jc3ZcIilcbmBgYCJ9 -->
+<pre class="r"><code># Clean required data and prepare for analysis if needed. 
+
+total_registrations &lt;- rbind(one, two, three, four, five)
+write_csv(total_registrations, &quot;data/total_registrations.csv&quot;)
+
+clean_total_registrations &lt;- read_csv(&quot;data/clean_total_registrations.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMTI4NTUgQ29sdW1uczogN+KUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCIsXCJcbmNociAoNyk6IGZvcm1faWQsIGxvYmJ5aXN0X3JlZ2lzdHJhbnQsIG9yZ2FuaXphdGlvbl9maXJtLCBjbGVhbl9vcmdhbml6YXQuLi5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
+<pre><code>Rows: 12855 Columns: 7── Column specification ─────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (7): form_id, lobbyist_registrant, organization_firm, clean_organizat...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xlYW5fdG90YWxfcmVnaXN0cmF0aW9uc1tjKCdzdGFydCcsICdlbmQnKV0gPC0gc3RyX3NwbGl0X2ZpeGVkKGNsZWFuX3RvdGFsX3JlZ2lzdHJhdGlvbnMkcmVnaXN0cmF0aW9uX3BlcmlvZCwgJy0nLCAyKVxuXG5gYGAifQ== -->
+<pre class="r"><code>clean_total_registrations[c(&#39;start&#39;, &#39;end&#39;)] &lt;- str_split_fixed(clean_total_registrations$registration_period, &#39;-&#39;, 2)
+</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
 <div id="basic-explorations" class="section level2">
 <h2>Basic explorations</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShjbGVhbl90b3RhbF9yZWdpc3RyYXRpb25zKVxuYGBgIn0= -->
+<pre class="r"><code>glimpse(clean_total_registrations)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMTIsODU1XG5Db2x1bW5zOiA3XG4kIGZvcm1faWQgICAgICAgICAgICAgICAgIDxjaHI+IFwiUjAwMDE0OVwiLCBcIlIwMDA2NzdcIiwgXCJSMDAwMjMwXCIsIFwiUjAwMDA3MVwiLOKAplxuJCBsb2JieWlzdF9yZWdpc3RyYW50ICAgICA8Y2hyPiBcIkFsYmVydCwgRGF2aWQgRy5cIiwgXCJBbW8sIEdhYnJpZWxcIiwgXCJCZWxsYW3igKZcbiQgb3JnYW5pemF0aW9uX2Zpcm0gICAgICAgPGNocj4gXCJUaGUgV2F2ZXJseSBHcm91cCwgSW5jLlwiLCBcIlRoZSBIb21lIERlcG90XCLigKZcbiQgY2xlYW5fb3JnYW5pemF0aW9uX2Zpcm0gPGNocj4gXCJUaGUgV2F2ZXJseSBHcm91cCwgSW5jLlwiLCBcIlRoZSBIb21lIERlcG90XCLigKZcbiQgZW1wbG95ZXIgICAgICAgICAgICAgICAgPGNocj4gXCJKMjksIEluYy5cIiwgXCJIb21lIERlcG90LCBJbmMuLCBUaGVcIiwgXCJNZWRp4oCmXG4kIGNsZWFuX2VtcGxveWVyICAgICAgICAgIDxjaHI+IFwiSjI5LCBJbmMuXCIsIFwiSG9tZSBEZXBvdCwgSW5jLiwgVGhlXCIsIFwiTWVkaeKAplxuJCByZWdpc3RyYXRpb25fcGVyaW9kICAgICA8Y2hyPiBcIjEwLzAxLzE5LTEwLzMxLzE5XCIsIFwiMTAvMjEvMTktMTAvMzEvMTlcIiwgXCLigKZcbiJ9 -->
+<pre><code>Rows: 12,855
+Columns: 7
+$ form_id                 &lt;chr&gt; &quot;R000149&quot;, &quot;R000677&quot;, &quot;R000230&quot;, &quot;R000071&quot;,…
+$ lobbyist_registrant     &lt;chr&gt; &quot;Albert, David G.&quot;, &quot;Amo, Gabriel&quot;, &quot;Bellam…
+$ organization_firm       &lt;chr&gt; &quot;The Waverly Group, Inc.&quot;, &quot;The Home Depot&quot;…
+$ clean_organization_firm &lt;chr&gt; &quot;The Waverly Group, Inc.&quot;, &quot;The Home Depot&quot;…
+$ employer                &lt;chr&gt; &quot;J29, Inc.&quot;, &quot;Home Depot, Inc., The&quot;, &quot;Medi…
+$ clean_employer          &lt;chr&gt; &quot;J29, Inc.&quot;, &quot;Home Depot, Inc., The&quot;, &quot;Medi…
+$ registration_period     &lt;chr&gt; &quot;10/01/19-10/31/19&quot;, &quot;10/21/19-10/31/19&quot;, &quot;…</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <p><em>How many rows &amp; columns? </em>What are limitations &amp;
 flaws?</p>
+<p>The original dataframe had 12855 rows and 5 columns. Our cleaned
+dataframe has 12855 rows and 9 columns (we added cleaned columns for
+organization name &amp; employer and split the date column to have a
+start and end date for the registration).</p>
+<p>The data looked pretty clean in OpenRefine. We found just a handful
+of names to clean up.</p>
+<p>Limitations: The dataframe is pretty basic with a small number of
+columns. That means we will have to cross-reference the website, if we
+want to know how much a lobbyist is making or how much an employer is
+spending on lobbying. The standard dataset doesn’t even include the
+registration matters. For our topical questions, we have to download new
+datasets for every registration matter we’re interested in. Another
+limitation is that the earliest data is from 2019, which means we can’t
+look at long-term trends.</p>
+<p>To answer most of our questions, we will have to do additional
+research. For example, we can ask the number of employers and lobbyists
+in the energy sector and see how that changed over the last few years.
+To examine how much the top firms make, we have to go back to the
+website.</p>
+<p>When looking into the PG county youth curfew, we won’t get clear cut
+answers from the data alone. Trying to find a connection between the
+number of lobbyists for matters of juvenile law and the implementation
+of the curfew will require additional research on our part.</p>
 <div id="question-1" class="section level3">
 <h3>Question 1</h3>
 <ul>
@@ -1829,7 +1940,7 @@ flaws?</p>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgpUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpSdW4qIGJ1dHRvbiB3aXRoaW4gdGhlIGNodW5rIG9yIGJ5IHBsYWNpbmcgeW91ciBjdXJzb3IgaW5zaWRlIGl0IGFuZCBwcmVzc2luZyAqQ21kK1NoaWZ0K0VudGVyKi4gCgpgYGB7cn0KcGxvdChjYXJzKQpgYGAKCnRpdGxlOiAiRGF0YSBBbmFseXNpcyIKYXV0aG9yOiAiQWJieSBXYWxsYWNlLCBMaXNhIFdvZWxmbCwgVG9ycmVuY2UgQmFua3MsIE5vYWggRmVyZ3Vzb24iCmRhdGU6ICIxMS8xMS8yMDIyIgpvdXRwdXQ6CiAgaHRtbF9kb2N1bWVudDoKICAgIHRoZW1lOiBjZXJ1bGVhbgogICAgaGlnaGxpZ2h0OiBweWdtZW50cwogICAgdG9jOiB0cnVlCiAgICB0b2NfZmxvYXQ6CiAgICAgIGNvbGxhcHNlZDogdHJ1ZQogICAgICBzbW9vdGhfc2Nyb2xsOiBmYWxzZQotLS0KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCmBgYAoKIyMgSW50cm9kdWN0aW9uIAoKSW4gdGhpcyBub3RlYm9vaywgd2UgYXJlIGFuYWx5c2luZyBkYXRhIGZyb20gdGhlIE1hcnlsYW5kIExvYmJ5aW5nIFJlZ2lzdHJhdGlvbnMuIFtodHRwczovL2xvYmJ5LWV0aGljcy5tYXJ5bGFuZC5nb3YvXQoKIyMgTG9hZCBsaWJyYXJpZXMKCkxvYWRpbmcgcmVxdWlyZWQgbGlicmFyaWVzIGZvciB0aGlzIGFuYWx5c2lzLgoKYGBge3IgZWNobz1GQUxTRSwgbWVzc2FnZT1GQUxTRX0KIyBMb2FkIHRoZSB0aWR5dmVyc2UgaGVyZQpsaWJyYXJ5KHRpZHl2ZXJzZSkKIyBMb2FkIGphbml0b3IgaGVyZQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkobHVicmlkYXRlKQpgYGAKCiMjIExvYWQgYW5kIENsZWFuaW5nIERhdGEKCmBgYHtyfQojIExvYWQgcmVxdWlyZWQgZGF0YQoKTG9iYmJ5aXN0X1JlZyA8LSByZWFkX2NzdgoKIyBQYXRoIHRvIGRhdGEgc2hvdWxkIGJlIGxvYWRlZCBmcm9tIGZvbGRlciAiZGF0YSIgaS5lLiByZWFkX2NzdigiZGF0YS9uYW1lX29mX2RhdGEuY3N2IikKIyBDbGVhbiByZXF1aXJlZCBkYXRhIGFuZCBwcmVwYXJlIGZvciBhbmFseXNpcyBpZiBuZWVkZWQuIApgYGAKCiMjIEJhc2ljIGV4cGxvcmF0aW9ucwoKKkhvdyBtYW55IHJvd3MgJiBjb2x1bW5zPwoqV2hhdCBhcmUgbGltaXRhdGlvbnMgJiBmbGF3cz8KCgojIyMgUXVlc3Rpb24gMQoKKiAqKlF1ZXN0aW9uIHRleHQqKjogCiogKipBbmFseXNpcyBzdW1tYXJ5Kio6Cg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgpUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpSdW4qIGJ1dHRvbiB3aXRoaW4gdGhlIGNodW5rIG9yIGJ5IHBsYWNpbmcgeW91ciBjdXJzb3IgaW5zaWRlIGl0IGFuZCBwcmVzc2luZyAqQ21kK1NoaWZ0K0VudGVyKi4gCgpgYGB7cn0KcGxvdChjYXJzKQpgYGAKCnRpdGxlOiAiRGF0YSBBbmFseXNpcyIKYXV0aG9yOiAiQWJieSBXYWxsYWNlLCBMaXNhIFdvZWxmbCwgVG9ycmVuY2UgQmFua3MsIE5vYWggRmVyZ3Vzb24iCmRhdGU6ICIxMS8xMS8yMDIyIgpvdXRwdXQ6CiAgaHRtbF9kb2N1bWVudDoKICAgIHRoZW1lOiBjZXJ1bGVhbgogICAgaGlnaGxpZ2h0OiBweWdtZW50cwogICAgdG9jOiB0cnVlCiAgICB0b2NfZmxvYXQ6CiAgICAgIGNvbGxhcHNlZDogdHJ1ZQogICAgICBzbW9vdGhfc2Nyb2xsOiBmYWxzZQotLS0KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCmBgYAoKIyMgSW50cm9kdWN0aW9uIAoKSW4gdGhpcyBub3RlYm9vaywgd2UgYXJlIGFuYWx5c2luZyBkYXRhIGZyb20gdGhlIE1hcnlsYW5kIExvYmJ5aW5nIFJlZ2lzdHJhdGlvbnMuIFtodHRwczovL2xvYmJ5LWV0aGljcy5tYXJ5bGFuZC5nb3YvXQoKIyMgTG9hZCBsaWJyYXJpZXMKCkxvYWRpbmcgcmVxdWlyZWQgbGlicmFyaWVzIGZvciB0aGlzIGFuYWx5c2lzLgoKYGBge3IgZWNobz1GQUxTRSwgbWVzc2FnZT1GQUxTRX0KIyBMb2FkIHRoZSB0aWR5dmVyc2UgaGVyZQpsaWJyYXJ5KHRpZHl2ZXJzZSkKIyBMb2FkIGphbml0b3IgaGVyZQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkobHVicmlkYXRlKQpgYGAKCiMjIExvYWQgYW5kIENsZWFuaW5nIERhdGEKCmBgYHtyfQojIExvYWQgcmVxdWlyZWQgZGF0YQoKIyBQYXRoIHRvIGRhdGEgc2hvdWxkIGJlIGxvYWRlZCBmcm9tIGZvbGRlciAiZGF0YSIgaS5lLiByZWFkX2NzdigiZGF0YS9uYW1lX29mX2RhdGEuY3N2IikKCm9uZSA8LSByZWFkX2NzdigiZGF0YS9yZWdpc3RyYXRpb25zKDEpLmNzdiIpICU+JSBjbGVhbl9uYW1lcygpCnR3byA8LSByZWFkX2NzdigiZGF0YS9yZWdpc3RyYXRpb25zKDIpLmNzdiIpICU+JSBjbGVhbl9uYW1lcygpCnRocmVlIDwtIHJlYWRfY3N2KCJkYXRhL3JlZ2lzdHJhdGlvbnMoMykuY3N2IikgJT4lIGNsZWFuX25hbWVzKCkKZm91cjwtIHJlYWRfY3N2KCJkYXRhL3JlZ2lzdHJhdGlvbnMoNCkuY3N2IikgJT4lIGNsZWFuX25hbWVzKCkKZml2ZSA8LSByZWFkX2NzdigiZGF0YS9yZWdpc3RyYXRpb25zKDUpLmNzdiIpJT4lIGNsZWFuX25hbWVzKCkKCmBgYAoqKnJiaW5kIGlzIGhvdyB5b3UgY29tYmluZSBtdWx0aXBsZSBkYXRhZnJhbWVzLgoKCmBgYHtyfQojIENsZWFuIHJlcXVpcmVkIGRhdGEgYW5kIHByZXBhcmUgZm9yIGFuYWx5c2lzIGlmIG5lZWRlZC4gCgp0b3RhbF9yZWdpc3RyYXRpb25zIDwtIHJiaW5kKG9uZSwgdHdvLCB0aHJlZSwgZm91ciwgZml2ZSkKd3JpdGVfY3N2KHRvdGFsX3JlZ2lzdHJhdGlvbnMsICJkYXRhL3RvdGFsX3JlZ2lzdHJhdGlvbnMuY3N2IikKCmNsZWFuX3RvdGFsX3JlZ2lzdHJhdGlvbnMgPC0gcmVhZF9jc3YoImRhdGEvY2xlYW5fdG90YWxfcmVnaXN0cmF0aW9ucy5jc3YiKQpjbGVhbl90b3RhbF9yZWdpc3RyYXRpb25zW2MoJ3N0YXJ0JywgJ2VuZCcpXSA8LSBzdHJfc3BsaXRfZml4ZWQoY2xlYW5fdG90YWxfcmVnaXN0cmF0aW9ucyRyZWdpc3RyYXRpb25fcGVyaW9kLCAnLScsIDIpCgpgYGAKCiMjIEJhc2ljIGV4cGxvcmF0aW9ucwoKYGBge3J9CmdsaW1wc2UoY2xlYW5fdG90YWxfcmVnaXN0cmF0aW9ucykKYGBgCgoKKkhvdyBtYW55IHJvd3MgJiBjb2x1bW5zPwoqV2hhdCBhcmUgbGltaXRhdGlvbnMgJiBmbGF3cz8KClRoZSBvcmlnaW5hbCBkYXRhZnJhbWUgaGFkIDEyODU1IHJvd3MgYW5kIDUgY29sdW1ucy4gT3VyIGNsZWFuZWQgZGF0YWZyYW1lIGhhcyAxMjg1NSByb3dzIGFuZCA5IGNvbHVtbnMgKHdlIGFkZGVkIGNsZWFuZWQgY29sdW1ucyBmb3Igb3JnYW5pemF0aW9uIG5hbWUgJiBlbXBsb3llciBhbmQgc3BsaXQgdGhlIGRhdGUgY29sdW1uIHRvIGhhdmUgYSBzdGFydCBhbmQgZW5kIGRhdGUgZm9yIHRoZSByZWdpc3RyYXRpb24pLgoKVGhlIGRhdGEgbG9va2VkIHByZXR0eSBjbGVhbiBpbiBPcGVuUmVmaW5lLiBXZSBmb3VuZCBqdXN0IGEgaGFuZGZ1bCBvZiBuYW1lcyB0byBjbGVhbiB1cC4KCkxpbWl0YXRpb25zOiBUaGUgZGF0YWZyYW1lIGlzIHByZXR0eSBiYXNpYyB3aXRoIGEgc21hbGwgbnVtYmVyIG9mIGNvbHVtbnMuIFRoYXQgbWVhbnMgd2Ugd2lsbCBoYXZlIHRvIGNyb3NzLXJlZmVyZW5jZSB0aGUgd2Vic2l0ZSwgaWYgd2Ugd2FudCB0byBrbm93IGhvdyBtdWNoIGEgbG9iYnlpc3QgaXMgbWFraW5nIG9yIGhvdyBtdWNoIGFuIGVtcGxveWVyIGlzIHNwZW5kaW5nIG9uIGxvYmJ5aW5nLiBUaGUgc3RhbmRhcmQgZGF0YXNldCBkb2Vzbid0IGV2ZW4gaW5jbHVkZSB0aGUgcmVnaXN0cmF0aW9uIG1hdHRlcnMuIEZvciBvdXIgdG9waWNhbCBxdWVzdGlvbnMsIHdlIGhhdmUgdG8gZG93bmxvYWQgbmV3IGRhdGFzZXRzIGZvciBldmVyeSByZWdpc3RyYXRpb24gbWF0dGVyIHdlJ3JlIGludGVyZXN0ZWQgaW4uIEFub3RoZXIgbGltaXRhdGlvbiBpcyB0aGF0IHRoZSBlYXJsaWVzdCBkYXRhIGlzIGZyb20gMjAxOSwgd2hpY2ggbWVhbnMgd2UgY2FuJ3QgbG9vayBhdCBsb25nLXRlcm0gdHJlbmRzLgoKVG8gYW5zd2VyIG1vc3Qgb2Ygb3VyIHF1ZXN0aW9ucywgd2Ugd2lsbCBoYXZlIHRvIGRvIGFkZGl0aW9uYWwgcmVzZWFyY2guIEZvciBleGFtcGxlLCB3ZSBjYW4gYXNrIHRoZSBudW1iZXIgb2YgZW1wbG95ZXJzIGFuZCBsb2JieWlzdHMgaW4gdGhlIGVuZXJneSBzZWN0b3IgYW5kIHNlZSBob3cgdGhhdCBjaGFuZ2VkIG92ZXIgdGhlIGxhc3QgZmV3IHllYXJzLiBUbyBleGFtaW5lIGhvdyBtdWNoIHRoZSB0b3AgZmlybXMgbWFrZSwgd2UgaGF2ZSB0byBnbyBiYWNrIHRvIHRoZSB3ZWJzaXRlLgoKV2hlbiBsb29raW5nIGludG8gdGhlIFBHIGNvdW50eSB5b3V0aCBjdXJmZXcsIHdlIHdvbid0IGdldCBjbGVhciBjdXQgYW5zd2VycyBmcm9tIHRoZSBkYXRhIGFsb25lLiBUcnlpbmcgdG8gZmluZCBhIGNvbm5lY3Rpb24gYmV0d2VlbiB0aGUgbnVtYmVyIG9mIGxvYmJ5aXN0cyBmb3IgbWF0dGVycyBvZiBqdXZlbmlsZSBsYXcgYW5kIHRoZSBpbXBsZW1lbnRhdGlvbiBvZiB0aGUgY3VyZmV3IHdpbGwgcmVxdWlyZSBhZGRpdGlvbmFsIHJlc2VhcmNoIG9uIG91ciBwYXJ0LgoKCiMjIyBRdWVzdGlvbiAxCgoqICoqUXVlc3Rpb24gdGV4dCoqOiAKKiAqKkFuYWx5c2lzIHN1bW1hcnkqKjoK</div>
 
 
 

@@ -49,16 +49,48 @@ library(lubridate)
 ```{r}
 # Load required data
 
-Lobbbyist_Reg <- read_csv
-
 # Path to data should be loaded from folder "data" i.e. read_csv("data/name_of_data.csv")
+
+one <- read_csv("data/registrations(1).csv") %>% clean_names()
+two <- read_csv("data/registrations(2).csv") %>% clean_names()
+three <- read_csv("data/registrations(3).csv") %>% clean_names()
+four<- read_csv("data/registrations(4).csv") %>% clean_names()
+five <- read_csv("data/registrations(5).csv")%>% clean_names()
+
+```
+**rbind is how you combine multiple dataframes.
+
+
+```{r}
 # Clean required data and prepare for analysis if needed. 
+
+total_registrations <- rbind(one, two, three, four, five)
+write_csv(total_registrations, "data/total_registrations.csv")
+
+clean_total_registrations <- read_csv("data/clean_total_registrations.csv")
+clean_total_registrations[c('start', 'end')] <- str_split_fixed(clean_total_registrations$registration_period, '-', 2)
+
 ```
 
 ## Basic explorations
 
+```{r}
+glimpse(clean_total_registrations)
+```
+
+
 *How many rows & columns?
 *What are limitations & flaws?
+
+The original dataframe had 12855 rows and 5 columns. Our cleaned dataframe has 12855 rows and 9 columns (we added cleaned columns for organization name & employer and split the date column to have a start and end date for the registration).
+
+The data looked pretty clean in OpenRefine. We found just a handful of names to clean up.
+
+Limitations: The dataframe is pretty basic with a small number of columns. That means we will have to cross-reference the website, if we want to know how much a lobbyist is making or how much an employer is spending on lobbying. The standard dataset doesn't even include the registration matters. For our topical questions, we have to download new datasets for every registration matter we're interested in. Another limitation is that the earliest data is from 2019, which means we can't look at long-term trends.
+
+To answer most of our questions, we will have to do additional research. For example, we can ask the number of employers and lobbyists in the energy sector and see how that changed over the last few years. To examine how much the top firms make, we have to go back to the website.
+
+When looking into the PG county youth curfew, we won't get clear cut answers from the data alone. Trying to find a connection between the number of lobbyists for matters of juvenile law and the implementation of the curfew will require additional research on our part.
 
 
 ### Question 1

@@ -123,7 +123,7 @@ Also answer this: is a map the best way to present this data? What else could yo
  
 **A2.** No, there is not a county where Cox had a higher percentage of the vote than Hogan. The map shows that the counties with the biggest separation in the percentages of total votes received by the candidates are Howard (-26.5%) and Talbot (-27.7) counties. The counties with less seperation in those percentages are Somerset (-1.98%) and Garrett (-6.23%). Hogan did not out perform Cox in those two counties as much in 2018 as he did with Howard and Talbot. 
 
-I think a map is an okay way to show this information. But I think there needs to be a way to show that both these candidates ran in two different years so it doesn't confuse people. If this were an interactive map, I would include information like on the voting totals of each of the candidates in each county. So, for example, if you put your cursor over a county, a pop up box would allow you to see the voting totals of each county for each candidate along with the percentage difference. 
+I think a map is an okay way to show this information. But I think there needs to be a way to show that both these candidates ran in two different years so it doesn't confuse people. If this were an interactive map, I would include information like on the voting totals of each of the candidates in each county. So, for example, if you put your cursor over a county, a pop up box would allow you to see the voting totals of each county for each candidate along with the percentage difference. Maybe you'd want population...
 
 ```{r}
 Select <- Join2218 %>% 

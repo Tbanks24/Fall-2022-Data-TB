@@ -56,7 +56,6 @@ two <- read_csv("data/registrations(2).csv") %>% clean_names()
 three <- read_csv("data/registrations(3).csv") %>% clean_names()
 four<- read_csv("data/registrations(4).csv") %>% clean_names()
 five <- read_csv("data/registrations(5).csv")%>% clean_names()
-
 ```
 **rbind is how you combine multiple dataframes.
 
@@ -94,6 +93,48 @@ When looking into the PG county youth curfew, we won't get clear cut answers fro
 
 
 ### Question 1
+What lobbyist/registrant represents the most employers in our data set? (Most ever, need all data)
+
+```{r}
+lobbyist_reg <- clean_total_registrations %>% 
+  count(lobbyist_registrant, source = TRUE) %>% 
+  arrange(desc(n))
+```
+
+
+```{r}
+Tim <- clean_total_registrations %>% 
+  filter(lobbyist_registrant == "Perry, Timothy  A")
+```
+
 
 * **Question text**: 
 * **Analysis summary**:
+
+
+
+
+### Question 3
+
+In the six months leading up to the September 9th youth curfew in Prince George’s County, was there an increase in the amount of lobbyist registered for matters of juvenile law?
+
+```{r}
+Juv1 <- read_csv("data/JuvLaw1.csv") %>% clean_names() %>% 
+```
+
+
+
+```{r}
+Juv1[c('start', 'end')] <- str_split_fixed(Juv1$registration_period, '-', 2)
+```
+
+```{r}
+
+
+```
+
+
+* **Question text**: 
+* **Analysis summary**:
+
+

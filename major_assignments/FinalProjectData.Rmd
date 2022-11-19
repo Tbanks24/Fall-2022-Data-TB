@@ -143,7 +143,7 @@ Research on website
 
 In the months leading up to the September 9th youth curfew in Prince George’s County, was there an increase in the amount of lobbyist registered for matters of juvenile law?
 
-Revised question: How did the number of Lobbyist registered for Criminal Law Procedure change after the September 9th youth curfew in Prince George's County? 
+Revised question: How did the number of Lobbyist from the ones that became registered for Criminal Law Procedure change after the September 9th youth curfew in Prince George's County? 
 
 ```{r}
 ```
@@ -194,7 +194,7 @@ CountSept22toNov <- Sept22toNov %>%
   summarise(count= n_distinct(lobbyist_registrant))
 ```
 
-From September 2021 to August 2022, there were 26 lobbyists registered for Criminal Law Procedure (24 were from September 2021 to February 2022). From September 2022 to November 2022, there were 19 lobbyist registered for Criminal Law Procedure.
+The number of lobbyist that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 26 lobbyists (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 newly registered lobbyist for Criminal Law Procedure.
 
 
 Question 4

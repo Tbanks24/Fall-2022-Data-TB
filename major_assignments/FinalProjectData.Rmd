@@ -194,7 +194,7 @@ CountSept22toNov <- Sept22toNov %>%
   summarise(count= n_distinct(lobbyist_registrant))
 ```
 
-The number of lobbyist that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 26 lobbyists (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 newly registered lobbyist for Criminal Law Procedure.
+The number of lobbyist that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 26 lobbyists (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 registered lobbyist for Criminal Law Procedure.
 
 
 Question 4

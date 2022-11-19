@@ -56,6 +56,10 @@ two <- read_csv("data/registrations(2).csv") %>% clean_names()
 three <- read_csv("data/registrations(3).csv") %>% clean_names()
 four<- read_csv("data/registrations(4).csv") %>% clean_names()
 five <- read_csv("data/registrations(5).csv")%>% clean_names()
+six <- read_csv("data/registrations(6).csv")%>% clean_names()
+seven <- read_csv("data/registrations(7).csv")%>% clean_names()
+eight <- read_csv("data/registrations(8).csv")%>% clean_names()
+nine <- read_csv("data/registrations(9).csv")%>% clean_names()
 ```
 **rbind is how you combine multiple dataframes.
 
@@ -63,7 +67,7 @@ five <- read_csv("data/registrations(5).csv")%>% clean_names()
 ```{r}
 # Clean required data and prepare for analysis if needed. 
 
-total_registrations <- rbind(one, two, three, four, five)
+total_registrations <- rbind(one, two, three, four, five, six, seven, eight, nine)
 write_csv(total_registrations, "data/total_registrations.csv")
 
 clean_total_registrations <- read_csv("data/clean_total_registrations.csv")
@@ -91,50 +95,145 @@ To answer most of our questions, we will have to do additional research. For exa
 
 When looking into the PG county youth curfew, we won't get clear cut answers from the data alone. Trying to find a connection between the number of lobbyists for matters of juvenile law and the implementation of the curfew will require additional research on our part.
 
-
 ### Question 1
-What lobbyist/registrant represents the most employers in our data set? (Most ever, need all data)
+* **Question text**:What lobbyist/registrant represents the most employers in our data set? (Most ever, need all data)
+
+* **Analysis summary**:*Analysis summary**: The lobbyist that represents the most employers in our data set was Timothy A. Perry. He's been representing employers for 12 years as a member of Perry White Ross Jacobson LLC and served as Chief of Staff to Senate President Thomas V. Mike Miller, Jr., the longest serving State Senate President in United States history. He lives in Baltimore County, Maryland.
 
 ```{r}
-lobbyist_reg <- clean_total_registrations %>% 
-  count(lobbyist_registrant, source = TRUE) %>% 
+most_employers <- clean_total_registrations %>% 
+  group_by(lobbyist_registrant) %>% 
+  count() %>% 
   arrange(desc(n))
 ```
 
 
 ```{r}
-Tim <- clean_total_registrations %>% 
-  filter(lobbyist_registrant == "Perry, Timothy  A")
+clean_total_registrations %>% 
+  filter(lobbyist_registrant == "Perry, Timothy  A"
+  )
 ```
 
+```{r}
+dupe_employers <- clean_total_registrations %>% 
+   filter(lobbyist_registrant == "Perry, Timothy  A") %>% 
+  count(clean_employer, source = TRUE) %>% 
+  arrange(desc(n))
+```
 
-* **Question text**: 
-* **Analysis summary**:
+```{r}
+distinct_employers <- clean_total_registrations %>% 
+    group_by(lobbyist_registrant, clean_organization_firm, clean_employer) %>% 
+  summarise(
+    count= n_distinct(lobbyist_registrant, clean_organization_firm, clean_employer)
+  ) %>% 
+  ungroup() %>%
+  group_by(lobbyist_registrant) %>% 
+  count()
+```
 
+Firms with most employers: 
+- Compass Government Relations Partners, LLC
+- Perry White Ross & Jacobson
+- Rifkin Weiner Livingston LLC
 
-
+Research on website
 
 ### Question 3
 
-In the six months leading up to the September 9th youth curfew in Prince George’s County, was there an increase in the amount of lobbyist registered for matters of juvenile law?
+In the months leading up to the September 9th youth curfew in Prince George’s County, was there an increase in the amount of lobbyist registered for matters of juvenile law?
+
+Revised question: How did the number of Lobbyist registered for Criminal Law Procedure change after the September 9th youth curfew in Prince George's County? 
 
 ```{r}
-Juv1 <- read_csv("data/JuvLaw1.csv") %>% clean_names() %>% 
-```
-
-
-
-```{r}
-Juv1[c('start', 'end')] <- str_split_fixed(Juv1$registration_period, '-', 2)
 ```
 
 ```{r}
-
-
 ```
 
+```{r}
+```
 
-* **Question text**: 
+Criminal Law Procedure data set
+
+```{r}
+Criminal_Prod<- read_csv("data/CriminalLProd.csv") %>% clean_names()
+Criminal_Prod[c('start', 'end')] <- str_split_fixed(Criminal_Prod$registration_period, '-', 2)
+
+NewCriminal_Prod <- Criminal_Prod %>% 
+mutate(new_start = as.Date(start, format = "%m/%d/%y")) %>% 
+  mutate(new_end = as.Date(end, format = "%m/%d/%y")) %>% 
+  mutate(start_year = floor_date(new_start, "year")) %>% 
+  group_by(lobbyist_registrant)
+```
+Compare: March2022 through August 2022 to September 2021 to February 2022
+
+```{r}
+SepttoFeb <- NewCriminal_Prod %>% 
+filter(new_start == "2021-11-08" | new_start == "2021-11-01" |
+new_start == "2022-02-08" | new_start == "2022-01-01" | new_start == "2021-12-06" | new_start == "2022-01-12" | new_start == "2022-01-24")
+  
+March22toAug <- NewCriminal_Prod %>% 
+  filter(new_start == "2022-05-18" | new_start == "2022-08-11")
+
+Sept22toNov <- NewCriminal_Prod %>% 
+  filter(new_start == "2022-11-01" | new_start == "2022-11-07" | new_start == "2022-11-11" | new_start == "2022-11-02")
+```
+
+```{r}
+CountSepttoFeb <- SepttoFeb %>% 
+  group_by(lobbyist_registrant) %>% 
+  summarise(count= n_distinct(lobbyist_registrant))
+
+CountMarch22toAug <- March22toAug %>% 
+  group_by(lobbyist_registrant) %>% 
+  summarise(count= n_distinct(lobbyist_registrant))
+
+CountSept22toNov <- Sept22toNov %>% 
+  group_by(lobbyist_registrant) %>% 
+  summarise(count= n_distinct(lobbyist_registrant))
+```
+
+From September 2021 to August 2022, there were 26 lobbyists registered for Criminal Law Procedure (24 were from September 2021 to February 2022). From September 2022 to November 2022, there were 19 lobbyist registered for Criminal Law Procedure.
+
+
+Question 4
+* **Question text**: How did the number of employers and lobbyists in the energy sector change from 2018 to 2022?
+
+Starting with the basic analysis of lobbyist registrations from the energy sector, we want to explore how lobbying efforts have changed in the past years. Follow-up questions include: Which firms had the most employers in our time frame? How much money did the top 3 firms make from employers in the energy sector (in 2022)? Who are their employers? Are they part of fossil fuels, clean energy or others?
+
 * **Analysis summary**:
 
+```{r}
+energy_registrations <- read_csv("data/clean_energy-registrations.csv") %>% clean_names()
+energy_registrations[c('start', 'end')] <- str_split_fixed(energy_registrations$registration_period, '-', 2)
+
+```
+
+
+```{r}
+energy_registrations <- energy_registrations %>% 
+  mutate(new_start = as.Date(start, format = "%m/%d/%y")) %>% 
+  mutate(new_end = as.Date(end, format = "%m/%d/%y")) %>% 
+  mutate(start_year = floor_date(new_start, "year")) %>% 
+```
+
+```{r}
+year_energy_registrations <- energy_registrations %>% 
+  group_by(start_year) %>%
+  summarise(count = n_distinct(clean_lobbyist_registrant))
+year_energy_registrations
+```
+
+```{r}
+employer_energy <- energy_registrations %>% 
+  group_by(clean_organization_firm) %>% 
+  summarise(count = n_distinct(clean_employer)) %>% 
+  arrange(desc(count))
+employer_energy
+```
+
+```{r}
+
+```
 

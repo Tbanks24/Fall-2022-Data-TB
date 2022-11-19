@@ -214,7 +214,7 @@ filter(expense_purpose == "Online Advertising",
        committee_name == "Baron  Jon (Jonathan) for Maryland") %>% 
 group_by(committee_name,payee_clean,expense_purpose) %>% 
 summarise(total = sum(amount)) %>% 
-arrange(desc(total)
+arrange(desc(total))
 ```
 
 

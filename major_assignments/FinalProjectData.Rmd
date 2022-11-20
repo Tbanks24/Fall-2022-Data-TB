@@ -143,7 +143,7 @@ Research on website
 
 In the months leading up to the September 9th youth curfew in Prince George’s County, was there an increase in the amount of lobbyist registered for matters of juvenile law?
 
-Revised question: How did the number of Lobbyist from the ones that became registered for Criminal Law Procedure change after the September 9th youth curfew in Prince George's County? 
+Revised question: How did the number of Criminal Law Procedure lobbyists registered change after the September 9th youth curfew in Prince George's County? 
 
 ```{r}
 ```
@@ -194,8 +194,11 @@ CountSept22toNov <- Sept22toNov %>%
   summarise(count= n_distinct(lobbyist_registrant))
 ```
 
-The number of lobbyist that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 26 lobbyists (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 registered lobbyist for Criminal Law Procedure.
+The number of lobbyists that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 25 lobbyists (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 registered lobbyists for Criminal Law Procedure.
 
+I changed the initial question because based on the data that I choose, I didn't see how I would be able to see if there was a month by month increase or decrease. I also noticed that from March 2022 to August 2022, there were only two lobbyists that registered during that period of time. So I though that I should create a question that allows me to incorporate more data than just two lobbyists. 
+
+Now that we know how the number of lobbyists has changed, it would be interesting to conduct more research and see if any of them have a connection to PG County at all. 
 
 Question 4
 * **Question text**: How did the number of employers and lobbyists in the energy sector change from 2018 to 2022?

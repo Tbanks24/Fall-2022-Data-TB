@@ -196,6 +196,16 @@ CountSept22toNov <- Sept22toNov %>%
   summarise(count= n_distinct(lobbyist_registrant))
 ```
 
+
+***New questions Derek edits:
+
+For criminal law procedure lobbyists, are there new people among the recent registrants who haven't registered before? Have the registrants changed in other ways compared not just to the most recent period but earlier periods, too? 
+
+Recent registrants:
+
+September 2022 to November 2022 - 
+
+
 The number of lobbyists that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 25 (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 registered lobbyists for Criminal Law Procedure.
 
 I changed the initial question because based on the data that I choose, I didn't see how I would be able to see if there was a month by month increase or decrease. I also noticed that from March 2022 to August 2022, there were only two lobbyists registered during that period of time. So I though that I should create a question that allows me to incorporate more data than just two lobbyists. 

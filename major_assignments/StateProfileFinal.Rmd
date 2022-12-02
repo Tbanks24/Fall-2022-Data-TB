@@ -1,0 +1,41 @@
+---
+title: "State Profile Final"
+output: html_document
+date: "2022-11-30"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r cars}
+
+```
+
+My state: MI (Michigan)
+
+Democratic Party ID: C00031054
+
+Republican Party ID: C00041160
+
+Data: MIindividualContri.csv 
+
+```{r}
+DemIndividualContribs <- read_csv("StatesData/MIindividualContri.csv")
+RepIndividualContribs <- read_csv("StatesData/RepMIIndiContribs.csv")
+```
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+

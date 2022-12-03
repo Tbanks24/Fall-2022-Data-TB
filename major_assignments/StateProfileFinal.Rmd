@@ -20,10 +20,29 @@ Republican Party ID: C00041160
 
 Data: MIindividualContri.csv 
 
+**Using receipts because he said that the individual contributions would be in the receipts. Check back on Dec. 8 for updated data. 
+For spending, I used the disbursements data. 
+
 ```{r}
-DemIndividualContribs <- read_csv("StatesData/MIindividualContri.csv")
-RepIndividualContribs <- read_csv("StatesData/RepMIIndiContribs.csv")
+MIDemRecipts <- read_csv("StatesData/MiDemAllRecipts.csv")
+MIRepRecipts <- read_csv("StatesData/MIRepAllRecipts.csv")
+MiRepSepnding <- read_csv("StatesData/MIRepSpending.csv")
+MiDemSpending <- read_csv("StatesData/MiDemSpending.csv")
 ```
+-How can you describe (broadly) the party’s donors? Where do the parties get their money and from what kinds of donors? Do they raise a lot in small amounts or from out of state donors?
+
+-What did the party spend its money on? You may need OpenRefine to help you standardize the purpose of spending. Can you tell much about the strategy behind the spending from the data?
+
+-When you compare the two parties, where are the differences and similarities?
+
+-What about either the donors or the spending prompts further questions from you?
+
+
+
+
+
+
+
 
 ```{r}
 

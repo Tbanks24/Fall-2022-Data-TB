@@ -196,18 +196,21 @@ CountSept22toNov <- Sept22toNov %>%
   summarise(count= n_distinct(lobbyist_registrant))
 ```
 
-```{r}
-CrimRecentReg <- NewCriminal_Prod %>% 
-  filter(lobbyist_registrant == "Amanuel, Yanet" | lobbyist_registrant == "Bellamy, Lorenzo" | lobbyist_registrant == "Carrington, J. Darrell"|lobbyist_registrant == "Ciekot, Ann T." |lobbyist_registrant == "Egan, Ashley" | lobbyist_registrant == "Elliott, Robyn S" | lobbyist_registrant == "Hessler, Therese Marie" | lobbyist_registrant == "Jones, Lisa" | lobbyist_registrant == "Kraska, Martin" | lobbyist_registrant == "Lennig, Dorothy J" | lobbyist_registrant == "Lombardi, Joyce" | lobbyist_registrant == "Malone, Sean R" | lobbyist_registrant == "Manno, Roger" | lobbyist_registrant == "Mansfield, Andrea" | lobbyist_registrant == "McDonough, Caitlin E" | lobbyist_registrant == "Shapiro, Melanie" | lobbyist_registrant == "Tompsett Jr., Thomas R." | lobbyist_registrant == "Weisel, Meredith R." | lobbyist_registrant == "Zeimer, Matan")
-```
-
 The number of lobbyists that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 25 (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 registered lobbyists for Criminal Law Procedure.
 
 I changed the initial question because based on the data that I choose, I didn't see how I would be able to see if there was a month by month increase or decrease. I also noticed that from March 2022 to August 2022, there were only two lobbyists registered during that period of time. So I though that I should create a question that allows me to incorporate more data than just two lobbyists. 
 
 Now that we know how the number of lobbyists has changed, it would be interesting to conduct more research and see if any of them have a connection to PG County at all. 
 
-***New questions Derek edits:
+
+To see if if any recent Criminal Law Procedure Lobbyists were previously registered as Criminal Law Procedure Lobbyists: 
+
+```{r}
+CrimRecentReg <- NewCriminal_Prod %>% 
+  filter(lobbyist_registrant == "Amanuel, Yanet" | lobbyist_registrant == "Bellamy, Lorenzo" | lobbyist_registrant == "Carrington, J. Darrell"|lobbyist_registrant == "Ciekot, Ann T." |lobbyist_registrant == "Egan, Ashley" | lobbyist_registrant == "Elliott, Robyn S" | lobbyist_registrant == "Hessler, Therese Marie" | lobbyist_registrant == "Jones, Lisa" | lobbyist_registrant == "Kraska, Martin" | lobbyist_registrant == "Lennig, Dorothy J" | lobbyist_registrant == "Lombardi, Joyce" | lobbyist_registrant == "Malone, Sean R" | lobbyist_registrant == "Manno, Roger" | lobbyist_registrant == "Mansfield, Andrea" | lobbyist_registrant == "McDonough, Caitlin E" | lobbyist_registrant == "Shapiro, Melanie" | lobbyist_registrant == "Tompsett Jr., Thomas R." | lobbyist_registrant == "Weisel, Meredith R." | lobbyist_registrant == "Zeimer, Matan")
+```
+
+***New questions Derek edits 12/03:
 
 For criminal law procedure lobbyists, are there new people among the recent registrants who haven't registered before? Have the registrants changed in other ways compared not just to the most recent period but earlier periods, too? 
 

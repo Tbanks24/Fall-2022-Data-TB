@@ -201,9 +201,19 @@ CountSept22toNov <- Sept22toNov %>%
 
 For criminal law procedure lobbyists, are there new people among the recent registrants who haven't registered before? Have the registrants changed in other ways compared not just to the most recent period but earlier periods, too? 
 
-Recent registrants:
+-Most recent = September 2022 to November 2022
 
-September 2022 to November 2022 - 
+Answer: The most recent criminal law procedure lobbyists registrants that were not previously registered before were Carrington, J. Darrell, Elliott, Robyn S, Hessler, Therese Marie, Lombardi, Joyce, McDonough, Caitlin E, Zeimer, Matan.
+
+What I did: I went to the Count Sept22 to Nov data set since it already counted the distinct number of registrants from Sep. 2022 to Nov 22. I took the 19 names from that list, filtered them from the initial criminal law procdeure data set, and created a new dataframe. Afterwards, I looked through the new CrimeRecentReg data set to see if there were any registrants that did not repeat. 
+
+```{r}
+CrimRecentReg <- NewCriminal_Prod %>% 
+  filter(lobbyist_registrant == "Amanuel, Yanet" | lobbyist_registrant == "Bellamy, Lorenzo" | lobbyist_registrant == "Carrington, J. Darrell"|lobbyist_registrant == "Ciekot, Ann T." |lobbyist_registrant == "Egan, Ashley" | lobbyist_registrant == "Elliott, Robyn S" | lobbyist_registrant == "Hessler, Therese Marie" | lobbyist_registrant == "Jones, Lisa" | lobbyist_registrant == "Kraska, Martin" | lobbyist_registrant == "Lennig, Dorothy J" | lobbyist_registrant == "Lombardi, Joyce" | lobbyist_registrant == "Malone, Sean R" | lobbyist_registrant == "Manno, Roger" | lobbyist_registrant == "Mansfield, Andrea" | lobbyist_registrant == "McDonough, Caitlin E" | lobbyist_registrant == "Shapiro, Melanie" | lobbyist_registrant == "Tompsett Jr., Thomas R." | lobbyist_registrant == "Weisel, Meredith R." | lobbyist_registrant == "Zeimer, Matan")
+```
+
+
+
 
 
 The number of lobbyists that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 25 (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 registered lobbyists for Criminal Law Procedure.

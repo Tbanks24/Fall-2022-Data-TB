@@ -69,7 +69,7 @@ CleanMIDemR <- MIDemRecipts %>%
   arrange(desc(contribution_receipt_amount))
 ```
 
-#Who made the most contributions to the Michigan Democratic Party:
+#What entity made the most contributions to the Michigan Democratic Party:
 
 ```{r}
 MostContribsDem <- CleanMIDemR %>% 
@@ -102,6 +102,15 @@ DemTopIndiContrib <- CleanMIDemR %>%
   distinct()
 ```
 
+#What was the was the smallest amount given? --- Does negative money mean organization had to take their money back because they contributed over the limit?
+
+```{r}
+BottomAmountDem <- CleanMIDemR %>% 
+  group_by(contribution_receipt_amount) %>% 
+  arrange((contribution_receipt_amount))
+```
+
+***Could filter contribution amounts for a certain price number to see if most of the donations are small or bigger. 
 
 #Organizing and Cleaning Michigan Republican recipts:
 
@@ -113,25 +122,38 @@ CleanMIRepR <- MIRepRecipts %>%
   arrange(desc(contribution_receipt_amount))
 ```
 
-#Who made the most contributions Michigan Republican Party?
+#What entity gave the most contributions Michigan Republican Party?
 
 ```{r}
-
-
-
+MostContribsRep <- CleanMIRepR %>% 
+  group_by(contributor_name) %>% 
+summarise(count=n()
+) %>%
+  arrange(desc(count))
 ```
 
 #Who donated the most money to the Michigan Republican Party?
 
 ```{r}
-
+MoneyMostRep <-CleanMIRepR  %>% 
+  group_by(contributor_name) %>% 
+  summarise(total= sum(contribution_receipt_amount)
+) %>%
+  arrange(desc(total)) %>% 
+  distinct()
 ```
 
+#What individual gave the most money to the Michigan Republican Party
 
 ```{r}
-
+RepTopIndiContrib <- CleanMIRepR %>% 
+  filter(entity_type_desc == "INDIVIDUAL") %>% 
+  group_by(contributor_name) %>% 
+  summarise(total= sum(contribution_receipt_amount)
+) %>%
+  arrange(desc(total)) %>% 
+  distinct()
 ```
-
 
 #Just Democratic Individual Contributions from recipts
 
@@ -150,11 +172,6 @@ RepIndiContribs <- CleanMIRepR %>%
 
 
 
-
-
-
-
-
 #Cleaning and organizing spending Democratic Data
 
 I don't know what fec election columns mean.
@@ -167,6 +184,23 @@ CleanMiDemSpend <- MiDemSpending %>%
   arrange(desc(disbursement_amount))
 ```
 
+#Who did most of the Democratic money go to? What was the reason of the transaction?
+
+```{r}
+TopRecieverDem <- CleanMiDemSpend %>% 
+  group_by(recipient_name,disbursement_description) %>% 
+  summarise(total= sum(disbursement_amount)
+) %>%
+  arrange(desc(total)) %>% 
+  distinct()
+```
+
+
+```{r}
+
+```
+
+
 #Cleaning and organizing republican spending data.
 
 ```{r}
@@ -177,5 +211,14 @@ CleanMiRepSpend <- MiRepSepnding %>%
   arrange(desc(disbursement_amount))
 ```
 
+#Who did most of the Republican money go to? What was the reason for the transaction? 
+```{r}
+TopRepReciever <- MiRepSepnding %>% 
+  group_by(recipient_name,disbursement_description) %>% 
+  summarise(total= sum(disbursement_amount)
+) %>%
+  arrange(desc(total)) %>% 
+  distinct()
+```
 
 

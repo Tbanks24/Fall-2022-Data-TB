@@ -145,18 +145,17 @@ Research on website
 
 In the months leading up to the September 9th youth curfew in Prince George’s County, was there an increase in the amount of lobbyist registered for matters of juvenile law?
 
-Revised question: How did the number of Criminal Law Procedure lobbyists registered change after the September 9th youth curfew in Prince George's County? 
+Revised question: How did the number of Criminal Law Procedure lobbyists registered change after the September 9th youth curfew in Prince George's County?
 
-```{r}
-```
+Answer: The number of lobbyists that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 25 (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 registered lobbyists for Criminal Law Procedure.
 
-```{r}
-```
+I changed the initial question because based on the data that I choose, I didn't see how I would be able to see if there was a month by month increase or decrease. I also noticed that from March 2022 to August 2022, there were only two lobbyists registered during that period of time. So I though that I should create a question that allows me to incorporate more data than just two lobbyists. 
 
-```{r}
-```
+I also decided to take a look at the lobbyists who most recently registered to see if they had been registered in the past. ACLU of Maryland, which is known for fighting for equal rights for Maryland residents, was one of the groups that registered in November 2022. However, the organization's recent lobbying registration is not due to the PG curfew, as they have consistently be registered as lobbyists since 2019. If it were due to the PG curfew, then we'd probably see more registered lobbyists connected to the organization. The same lobbyist, Yanet Amanuel, has been registered with the organization since 2019.
 
-Criminal Law Procedure data set
+I noticed that the organization Jews United For Justice hired a lobbyist for the first time on November 1, 2022. The organinzation " advances economic, racial, and social justice in the Baltimore-Washington region by educating and mobilizing our local Jewish communities to action." People like Kanye West and Kyrie Irving have made the news lately due to Antisemitic posts and remarks that they have made. I think that it may be possible that current events may have encouraged the organziation to register. 
+
+#Read in criminal procedure data, split the dates column into start and end periods. The next section of code then puts both the start and end dates in month, day,and year format. The results are grouped by the name of the lobbyists.
 
 ```{r}
 Criminal_Prod<- read_csv("data/CriminalLProd.csv") %>% clean_names()
@@ -168,6 +167,9 @@ mutate(new_start = as.Date(start, format = "%m/%d/%y")) %>%
   mutate(start_year = floor_date(new_start, "year")) %>% 
   group_by(lobbyist_registrant)
 ```
+
+#Next I created new dataframes to seperate the time periods to find out what how the registration data changes after Spetember 9, 2022. I created dataframes for September 2021 to Feburary 2022 (SeptoFeb), March 2022 to August 2022 (March22toAug), and September 2022 to November 2022 (Sept22toNov). I filtered the dates from the start period column to find registrants that were registered at the beginning of each time period. 
+
 Compare: March2022 through August 2022 to September 2021 to February 2022
 
 ```{r}
@@ -181,6 +183,8 @@ March22toAug <- NewCriminal_Prod %>%
 Sept22toNov <- NewCriminal_Prod %>% 
   filter(new_start == "2022-11-01" | new_start == "2022-11-07" | new_start == "2022-11-11" | new_start == "2022-11-02")
 ```
+
+#To see the distinct number of lobbyists registered during each time period, I created new dataframes for each of the time periods, then counted the distinct number of lobbyists for each time period. 
 
 ```{r}
 CountSepttoFeb <- SepttoFeb %>% 
@@ -196,23 +200,23 @@ CountSept22toNov <- Sept22toNov %>%
   summarise(count= n_distinct(lobbyist_registrant))
 ```
 
-The number of lobbyists that registered on or after September, 01 2021 through August 2022 for Criminal Law Procedure was 25 (24 were from September 2021 to February 2022). From September, 01 2022 through November 2022, there were 19 registered lobbyists for Criminal Law Procedure.
-
-I changed the initial question because based on the data that I choose, I didn't see how I would be able to see if there was a month by month increase or decrease. I also noticed that from March 2022 to August 2022, there were only two lobbyists registered during that period of time. So I though that I should create a question that allows me to incorporate more data than just two lobbyists. 
-
-Now that we know how the number of lobbyists has changed, it would be interesting to conduct more research and see if any of them have a connection to PG County at all. 
-
-
-To see if if any recent Criminal Law Procedure Lobbyists were previously registered as Criminal Law Procedure Lobbyists: 
+#To see if if any recent Criminal Law Procedure Lobbyists were previously registered as Criminal Law Procedure Lobbyists, I went back to the inital dataset where I split the start and end dates. I then looked at the 19 names for the September 2022 to November 2022 dataset to see the most recent registrants. I filtered them from the bigger data and created a new dataframe (CrimeRecentReg). Any names that were duplicated from this list are the people who were previously registered. 
 
 ```{r}
 CrimRecentReg <- NewCriminal_Prod %>% 
   filter(lobbyist_registrant == "Amanuel, Yanet" | lobbyist_registrant == "Bellamy, Lorenzo" | lobbyist_registrant == "Carrington, J. Darrell"|lobbyist_registrant == "Ciekot, Ann T." |lobbyist_registrant == "Egan, Ashley" | lobbyist_registrant == "Elliott, Robyn S" | lobbyist_registrant == "Hessler, Therese Marie" | lobbyist_registrant == "Jones, Lisa" | lobbyist_registrant == "Kraska, Martin" | lobbyist_registrant == "Lennig, Dorothy J" | lobbyist_registrant == "Lombardi, Joyce" | lobbyist_registrant == "Malone, Sean R" | lobbyist_registrant == "Manno, Roger" | lobbyist_registrant == "Mansfield, Andrea" | lobbyist_registrant == "McDonough, Caitlin E" | lobbyist_registrant == "Shapiro, Melanie" | lobbyist_registrant == "Tompsett Jr., Thomas R." | lobbyist_registrant == "Weisel, Meredith R." | lobbyist_registrant == "Zeimer, Matan")
 ```
 
-***New questions Derek edits 12/03:
+#Any lobbyists that were registered from September 2021 to Feburary 2022 that were not previously registered? 
 
-For criminal law procedure lobbyists, are there new people among the recent registrants who haven't registered before? Have the registrants changed in other ways compared not just to the most recent period but earlier periods, too? 
+```{r}
+CrimeLaterReg <- NewCriminal_Prod %>% 
+  filter(lobbyist_registrant == "Amanuel, Yanet" | lobbyist_registrant == "Bellamy, Lorenzo" | lobbyist_registrant == "Chu, Sarah" |
+ lobbyist_registrant == "Ciekot, Ann T."| lobbyist_registrant == "Dews, Christopher" |lobbyist_registrant == "Doherty, Michael J"|lobbyist_registrant == "Dold, James Lee" | lobbyist_registrant == "Egan, Ashley" | lobbyist_registrant == "Erb, Nathaniel" | lobbyist_registrant == "Jones, Lisa" | lobbyist_registrant == "Jordan, Lisae C" | lobbyist_registrant == "Kraska, Martin" | lobbyist_registrant == "Lennig, Dorothy J"| lobbyist_registrant == "Malone, Sean R" | lobbyist_registrant == "Manno, Roger" | lobbyist_registrant == "Mansfield, Andrea" | lobbyist_registrant == "Nalley, Justin" | lobbyist_registrant == "Shapiro, Melanie" | lobbyist_registrant == "Shewbridge, Rylie Elizabeth" | lobbyist_registrant == "Snyder, Gregory  Michael, Jr." | lobbyist_registrant == "Stierhoff, John R." | lobbyist_registrant == "Tompsett Jr., Thomas R." | lobbyist_registrant == "Weisel, Meredith R." | lobbyist_registrant == "Zirkin, Robert Alan")
+
+```
+
+Who are the recent registrants among both the most current time period?
 
 -Most recent = September 2022 to November 2022
 
@@ -220,13 +224,13 @@ Answer: The most recent criminal law procedure lobbyists registrants that were n
 
 What I did: I went to the Count Sept22 to Nov data set since it already counted the distinct number of registrants from Sep. 2022 to Nov 22. I took the 19 names from that list, filtered them from the initial criminal law procedure data set, and created a new dataframe. Afterwards, I looked through the new CrimeRecentReg data set to see if there were any registrants that did not repeat. 
 
+-September 2021 to Feb. 2022 
+
+-The new lobbyists in the criminal procedure data from September 2021 to February 2022 were Chu, Sarah (Innocence Project), Dold, James Lee (Human Rights for Kids), Shewbridge, Rylie Elizabeth (Bellamy Genn Group LLC/ Organize Black), and Snyder, Gregory  Michael, Jr.(Bellamy Genn Group LLC/ Organize Black).
+
 Do any of the recently registered criminal procedure lobbyists have the same employers? 
 
-Some of the recently lobbyists also had the same employer. Both Yanet and Lorenzo had the ACLU of Maryland as their employer. Lisa, Dorthy J, Sean R, Catlin E, and Thomas R had the House of Ruth Maryland as their employer. The only person whose employer was the Jews United for Justice was Matan. People like Kanye West and Kyrie Irving have made the news lately due to Antisemitic posts and remarks that they have made. I think it would be interesting to see if there will or has been an increase in the employers hiring lobbyists (from all lobbyists data) to advocate for the rights of the Jewish community.
-
-```{r}
-
-```
+Some of the recently registered lobbyists also had the same employer. Both Yanet and Lorenzo had the ACLU of Maryland as their employer. Lisa, Dorthy J, Sean R, Catlin E, and Thomas R had the House of Ruth Maryland as their employer. The only person whose employer was the Jews United for Justice was Matan. 
 
 Question 4
 **Question text**: How did the number of employers and lobbyists registered for "energy" change from 2018 to 2022?

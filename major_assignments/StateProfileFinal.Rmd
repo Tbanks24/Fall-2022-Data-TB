@@ -95,7 +95,7 @@ MoneyMostDem <- CleanMIDemR %>%
 ```{r}
 DemTopIndiContrib <- CleanMIDemR %>% 
   filter(entity_type_desc == "INDIVIDUAL") %>% 
-  group_by(contributor_name) %>% 
+  group_by(contributor_name, contributor_state) %>% 
   summarise(total= sum(contribution_receipt_amount)
 ) %>%
   arrange(desc(total)) %>% 
@@ -139,6 +139,7 @@ CleanMIRepR <- MIRepRecipts %>%
   select(committee_name_2,contributor_name,report_year,entity_type_desc,contributor_street_1,contributor_city,contributor_state,contributor_employer,contributor_occupation, contribution_receipt_date,contribution_receipt_amount ) %>% 
   group_by(contribution_receipt_amount) %>% 
   arrange(desc(contribution_receipt_amount))
+CleanMIRepR
 ```
 
 #What entity type is donating the most money to the Republican Party? 
@@ -150,7 +151,6 @@ DonatingMostRep <- CleanMIRepR %>%
 ) %>%
   arrange(desc(total))
 ```
-
 
 #What entity gave the most contributions Michigan Republican Party?
 
@@ -172,8 +172,6 @@ summarise(count=n()
   arrange(desc(count))
 ```
 
-
-
 #Who donated the most money to the Michigan Republican Party?
 
 ```{r}
@@ -190,7 +188,7 @@ MoneyMostRep <-CleanMIRepR  %>%
 ```{r}
 RepTopIndiContrib <- CleanMIRepR %>% 
   filter(entity_type_desc == "INDIVIDUAL") %>% 
-  group_by(contributor_name) %>% 
+  group_by(contributor_name,contributor_state) %>% 
   summarise(total= sum(contribution_receipt_amount)
 ) %>%
   arrange(desc(total)) %>% 
@@ -210,6 +208,52 @@ DemIndiContribs <- CleanMIDemR %>%
 RepIndiContribs <- CleanMIRepR %>% 
     filter(entity_type_desc == "INDIVIDUAL")
 ```
+
+#What state donated the most to each party?
+
+```{r}
+StateDem <- CleanMIDemR %>% 
+  group_by(contributor_state)%>% 
+  summarise(total= sum(contribution_receipt_amount)
+) %>%
+  mutate(percent = (total/10382351)) %>% 
+  arrange(desc(total))
+```
+
+```{r}
+StateRep <-CleanMIRepR %>% 
+  group_by(contributor_state)%>% 
+  summarise(total= sum(contribution_receipt_amount)
+) %>%
+  arrange(desc(total))
+```
+
+#What is the total amount of money donated to each party?
+
+```{r}
+TotalContirbDem <- CleanMIDemR %>% 
+  group_by(committee_name_2) %>% 
+  summarise(total_amount = sum(contribution_receipt_amount))
+
+TotalContribRep <- CleanMIRepR %>% 
+  group_by(committee_name_2) %>% 
+  summarise(total_amount = sum(contribution_receipt_amount))
+```
+
+#Are most donations in small chunks or big per party? 
+
+```{r}
+DemChunks <- CleanMIDemR %>% 
+  group_by(contribution_receipt_amount) %>% 
+summarise(count=n()) %>%
+  arrange(desc(count))
+
+RepChunks <- CleanMIRepR %>% 
+  group_by(contribution_receipt_amount) %>% 
+summarise(count=n()) %>%
+  arrange(desc(count))
+```
+
 
 #Spending
 
@@ -279,3 +323,22 @@ TransTypeRep <- CleanMiRepSpend %>%
 ```
 
 #Who spent more overall, Democrats or Republicans? 
+
+# Total Democratic Spending
+
+```{r}
+OverSpendDem <- CleanMiDemSpend %>% 
+  group_by(committee_name) %>% 
+  summarise(total_amount = sum(disbursement_amount))
+OverSpendDem
+```
+
+#Total Republican Spending
+
+```{r}
+OverSpendRep <- CleanMiRepSpend %>% 
+  group_by(committee_name) %>% 
+  summarise(total_amount = sum(disbursement_amount))
+OverSpendRep
+```
+

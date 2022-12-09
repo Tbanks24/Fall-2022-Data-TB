@@ -153,7 +153,7 @@ I changed the initial question because based on the data that I choose, I didn't
 
 I also decided to take a look at the lobbyists who most recently registered to see if they had been registered in the past. ACLU of Maryland, which is known for fighting for equal rights for Maryland residents, was one of the groups that registered in November 2022. However, the organization's recent lobbying registration is not due to the PG curfew, as they have consistently be registered as lobbyists since 2019. If it were due to the PG curfew, then we'd probably see more registered lobbyists connected to the organization. The same lobbyist, Yanet Amanuel, has been registered with the organization since 2019.
 
-I noticed that the organization Jews United For Justice hired a lobbyist for the first time on November 1, 2022. The organinzation " advances economic, racial, and social justice in the Baltimore-Washington region by educating and mobilizing our local Jewish communities to action." People like Kanye West and Kyrie Irving have made the news lately due to Antisemitic posts and remarks that they have made. I think that it may be possible that current events may have encouraged the organziation to register. 
+I noticed that the organization Jews United For Justice hired a lobbyist for the first time on November 1, 2022. The organization "advances economic, racial, and social justice in the Baltimore-Washington region by educating and mobilizing our local Jewish communities to action." People like Kanye West and Kyrie Irving have made the news lately due to Antisemitic posts and remarks that they have made. I think that it may be possible that current events may have encouraged the organization to register. The organization The Anti-Defamation League works to stop the defamation of Jewish people and has consistently had a lobbyist associated with it since 2020.
 
 #Read in criminal procedure data, split the dates column into start and end periods. The next section of code then puts both the start and end dates in month, day,and year format. The results are grouped by the name of the lobbyists.
 
@@ -221,8 +221,6 @@ Who are the recent registrants among both the most current time period?
 -Most recent = September 2022 to November 2022
 
 Answer: The most recent criminal law procedure lobbyists registrants that were not previously registered in this category before were Carrington, J. Darrell, Elliott, Robyn S, Hessler, Therese Marie, Lombardi, Joyce, McDonough, Caitlin E, Zeimer, Matan.
-
-What I did: I went to the Count Sept22 to Nov data set since it already counted the distinct number of registrants from Sep. 2022 to Nov 22. I took the 19 names from that list, filtered them from the initial criminal law procedure data set, and created a new dataframe. Afterwards, I looked through the new CrimeRecentReg data set to see if there were any registrants that did not repeat. 
 
 -September 2021 to Feb. 2022 
 

@@ -108,6 +108,7 @@ DonatingMostDem <- CleanMIDemR %>%
   group_by(entity_type_desc) %>% 
   summarise(total= sum(contribution_receipt_amount)
 ) %>%
+   mutate(percent = (total/10382351)*100) %>% 
   arrange(desc(total))
 ```
 
@@ -148,7 +149,7 @@ CleanMIRepR
 DonatingMostRep <- CleanMIRepR %>% 
   group_by(entity_type_desc) %>% 
   summarise(total= sum(contribution_receipt_amount)
-) %>%
+) %>%mutate(percent = (total/2520106)*100) %>% 
   arrange(desc(total))
 ```
 
@@ -216,7 +217,7 @@ StateDem <- CleanMIDemR %>%
   group_by(contributor_state)%>% 
   summarise(total= sum(contribution_receipt_amount)
 ) %>%
-  mutate(percent = (total/10382351)) %>% 
+  mutate(percent = (total/10382351)*100) %>% 
   arrange(desc(total))
 ```
 
@@ -286,7 +287,7 @@ TopRecieverDem <- CleanMiDemSpend %>%
 TransTypeDem <- CleanMiDemSpend %>% 
   group_by(disbursement_description) %>% 
   summarise(total= sum(disbursement_amount)
-) %>%
+) %>% mutate(percent = (total/5026673)*100) %>% 
   arrange(desc(total)) %>% 
   distinct()
 ```
@@ -317,7 +318,7 @@ TopRepReciever <- MiRepSepnding %>%
 TransTypeRep <- CleanMiRepSpend %>% 
   group_by(disbursement_description) %>% 
   summarise(total= sum(disbursement_amount)
-) %>%
+) %>%mutate(percent = (total/1427744)*100) %>% 
   arrange(desc(total)) %>% 
   distinct()
 ```

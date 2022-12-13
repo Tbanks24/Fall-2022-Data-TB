@@ -255,7 +255,7 @@ summarise(count=n()) %>%
 ```
 
 
-#Spending
+#Spending --- Ask questions about standardizing fundraising....specifically for republicans. 
 
 #Cleaning and organizing spending Democratic Data
 

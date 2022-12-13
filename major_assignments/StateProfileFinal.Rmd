@@ -129,7 +129,11 @@ MoneyMostDem <- CleanMIDemR %>%
 
 #Which individual donated the most money to the Democratic Party?
 
+In terms of individual donors, Merle Catherine Chambers from Colorado donated the most money to Michigan's Democratic Party. She donated $27200 in three contributions. Two $10,000 donations and one $7,200 donation. According to the website influencewatch.org, Chambers is lawyer, investor, and former oil and natural gas CEO. From 1980 to 1997, she was the founding President and CEO of Axem Resources. She is also a philanthropist who founded the Merle Chambers Fund, which donates to abortion, social justice, education, economic security for women, and other advocacy causes supported by the Democratic Party. She has a history of donating to other Democratic campaigns of candidates in Colorado, New Hampshire, and Missouri. She also donated money to organizations connected to Bill Clinton in 1992. 
 
+The third leading donor to the Michigan Democrats was Robert Price, CEO of PriceSmart, which is like a warehouse store company. According to a 2022 article on Wallmine, his net worth is about $234 million. His wife, Allison gave the second-most money to Michigan's Democratic Party. They're both from California.
+
+The only two people in the top five in money donated to the state's Democratic Party that are from Michigan are James Kelmer, who is the VP of Intellectual Property Bussiness Strategy at Strkyer Corp, and James Sanford Offield.
 
 ```{r}
 DemTopIndiContrib <- CleanMIDemR %>% 
@@ -141,8 +145,24 @@ DemTopIndiContrib <- CleanMIDemR %>%
   distinct()
 ```
 
+```{r}
+Merle <- CleanMIDemR %>% 
+  filter(contributor_name == "CHAMBERS, MERLE CATHERINE")
+JamesKel <-CleanMIDemR %>% 
+  filter(contributor_name == "KEMLER, JAMES")
+JamesSan <- CleanMIDemR%>% 
+  filter(contributor_name == "OFFIELD, JAMES SANFORD")
+```
+
+```{r}
+Robert <- CleanMIDemR %>% 
+  filter(contributor_name == "PRICE, ROBERT")
+```
 
 #Which type of entity is donating most of the money for the Democratic Party?
+
+The Michigan Democratic Party received most of their money from Political Party Committees. More than 37% of the total amount of money donated to the party came from Political Party Committees. Individual donations made up about 26% of the total contributions. Political Action Committees made up about 17% of the contributions. 
+
 ```{r}
 DonatingMostDem <- CleanMIDemR %>% 
   group_by(entity_type_desc) %>% 
@@ -153,6 +173,8 @@ DonatingMostDem <- CleanMIDemR %>%
 ```
 
 #Which type of entity made the most number donations to the Democratic Party? (Not amount of money) -Why are there more categories for the Republicans than the Democrats?
+
+Individual donors made the most contributions at 5389. Organizations made second most contributions at 4824. Ironically, Political Action Committees came in second to last in contributions at 78. This makes sense considering that their contributions tend have more money attached to them. Campaign Committees made the fewest number of contributions with 24.
 
 ```{r}
 EntityDonationDem <- CleanMIDemR %>% 
@@ -252,6 +274,10 @@ RepIndiContribs <- CleanMIRepR %>%
 
 #What state donated the most to each party?
 
+The Michigan Democratic Party received most of its money from the Washington, D.C. at $4717282.54. Michigan gve the state's party the second most at $2415077.67. Massachusetts, California, and Ohio all round out the top five.
+
+The Michigan Republican Party receives most of its money from the state of Michigan at $1679098.75.Florida gave the party the second most in terms of money at 273,476.29. California, Colorado, and Texas round out the top five. 
+
 ```{r}
 StateDem <- CleanMIDemR %>% 
   group_by(contributor_state)%>% 
@@ -268,10 +294,9 @@ StateRep <-CleanMIRepR %>%
   arrange(desc(total))
 ```
 
-
-
-
 #What is the total amount of money donated to each party?
+
+The Michigan Democratic Party received a total of $10382351.The Michigan Republican Party received $2520106. That's a difference of $7,862,245.
 
 ```{r}
 TotalContirbDem <- CleanMIDemR %>% 
@@ -284,6 +309,10 @@ TotalContribRep <- CleanMIRepR %>%
 ```
 
 #Are most donations in small chunks or big per party? 
+
+Most of the donations for the Michigan Democratic Party came in smaller chunks, with 1658 donations of $30. There were 1311 donations of $25. There were 1115 donations of $100 and 915 of $10. The highest contribution amount received for the Democratic Party was $37,0000.
+
+A similar trend is true for the Michigan Republican Party. The party received 1322 donations of $25. 1085 donations were recieved of $10. This is followed by 656 $5 donations. So, most of the contributions for the Republicans are coming in at lower dollar amounts than for the state's Democratic Party. The Democratic party's most popular contribution amount is higher. The highest contribution amount received for the Republican Party was $9950. 
 
 ```{r}
 DemChunks <- CleanMIDemR %>% 

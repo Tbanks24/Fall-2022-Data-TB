@@ -8,16 +8,13 @@ date: "2022-11-30"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r cars}
-
-```
 
 ```{r}
 library('tidyverse')
 library('janitor')
 library('lubridate')
+library('refinr')
 ```
-
 
 
 My state: MI (Michigan)
@@ -34,8 +31,8 @@ For spending, I used the disbursements data.
 ```{r}
 MIDemRecipts <- read_csv("StatesData/MiDemAllRecipts.csv")
 MIRepRecipts <- read_csv("StatesData/MIRepAllRecipts.csv")
-MiRepSepnding <- read_csv("StatesData/MIRepSpending.csv")
-MiDemSpending <- read_csv("StatesData/MiDemSpending.csv")
+MiRepSepnding <- read_csv("StatesData/MIRepRefSpending-csv.csv")
+MiDemSpending <- read_csv("StatesData/MiDemRefSpending-csv.csv")
 ```
 -How can you describe (broadly) the party’s donors? Where do the parties get their money and from what kinds of donors? Do they raise a lot in small amounts or from out of state donors?
 
@@ -217,7 +214,6 @@ StateDem <- CleanMIDemR %>%
   group_by(contributor_state)%>% 
   summarise(total= sum(contribution_receipt_amount)
 ) %>%
-  mutate(percent = (total/10382351)*100) %>% 
   arrange(desc(total))
 ```
 
@@ -228,6 +224,9 @@ StateRep <-CleanMIRepR %>%
 ) %>%
   arrange(desc(total))
 ```
+
+
+
 
 #What is the total amount of money donated to each party?
 
@@ -265,8 +264,9 @@ I don't know what fec election columns mean.
 ```{r}
 CleanMiDemSpend <- MiDemSpending %>% 
   clean_names() %>% 
-  select(committee_name,report_year,entity_type_desc,recipient_name,recipient_state,beneficiary_committee_name, disbursement_type_description, disbursement_description, disbursement_date, disbursement_amount, fec_election_type_desc,fec_election_year) %>% 
+  select(committee_name,report_year,entity_type_desc,recipient_name,recipient_state,beneficiary_committee_name, disbursement_type_description, disbursement_description, disbursement_date, disbursement_amount, fec_election_type_desc,fec_election_year, or_disbursement_description) %>% 
   group_by(disbursement_amount) %>% 
+  mutate(disbursement_description = case_when(disbursement_description == "GOTV EVENT ENTERTAINMENT" ~ "GOTV", disbursement_description == "PAYROLL PROCESSING FEES" ~ "PAYROLL FEES", disbursement_description == "GOTV RALLY" ~ "GOTV", disbursement_description == "STAC SERVICES" ~ "STAC LAB SERVICES", disbursement_description == "GOTV ADS - NOT CANDIDATE RELATED" ~ "GOTV", TRUE ~ disbursement_description)) %>% 
   arrange(desc(disbursement_amount))
 ```
 
@@ -274,7 +274,7 @@ CleanMiDemSpend <- MiDemSpending %>%
 
 ```{r}
 TopRecieverDem <- CleanMiDemSpend %>% 
-  group_by(recipient_name,disbursement_description) %>% 
+  group_by(recipient_name,disbursement_description, or_disbursement_description) %>% 
   summarise(total= sum(disbursement_amount)
 ) %>%
   arrange(desc(total)) %>% 
@@ -298,15 +298,17 @@ TransTypeDem <- CleanMiDemSpend %>%
 ```{r}
 CleanMiRepSpend <- MiRepSepnding %>% 
   clean_names() %>% 
-  select(committee_name,report_year,entity_type_desc,recipient_name,recipient_state,beneficiary_committee_name, disbursement_type_description, disbursement_description, disbursement_date, disbursement_amount, fec_election_type_desc,fec_election_year) %>% 
+  select(committee_name,report_year,entity_type_desc,recipient_name,recipient_state,beneficiary_committee_name, disbursement_type_description, disbursement_description, disbursement_date, disbursement_amount, fec_election_type_desc,fec_election_year, or_disbursement_description) %>% 
   group_by(disbursement_amount) %>% 
+  mutate(disbursement_description = case_when(disbursement_description == "CC Processing Fee" ~ "CC Processing Fees",disbursement_description == "FOOD FOR FUNDRAISING MEETING- NON CAND." ~ "FOOD", disbursement_description == "FOOD FOR MEETING- VOTER ID/NON CAND." ~ "FOOD",disbursement_description == "FOOD FOR VOLUNTEERS- VOTER ID/NON CAND." ~ "FOOD", disbursement_description == "MILEAGE REIMBURSEMENT-VOTER ID/NON CAND." ~ "MILEAGE REIMBURSEMENT", disbursement_description == "CATERING FOR FUNDRAISING EVENT-NON CAND." ~ "FOOD",disbursement_description == "MILEAGE REIMBURSEMENT- VOTER ID/NON CAND.
+" ~ "REIMBURSEMENT", disbursement_description == "ONLINE FUNDRAISING FEE - NON CAND." ~ "ONLINE FUNDRAISING FEE- NON CAND.", disbursement_description == "MILEAGE REIMBURSEMENT" ~ "REIMBURSEMENT", disbursement_description == "FOOD FOR STAFF" ~ "FOOD", disbursement_description == "REFUND OF  CONTRIBUTION" ~ "REFUNDS", disbursement_description == "REFUND OF 9.9.2020 DONATION" ~ "REFUNDS", disbursement_description == "SALARY" ~ "SALARIES", disbursement_description == "FOOD FOR FUNDRAISING EVENT-NON CAND." ~ "FOOD", disbursement_description == "ONLINE FUNDRAISING FEE NON CAND." ~ "ONLINE ADVERTISING-NON CAND.", TRUE ~ disbursement_description)) %>% 
   arrange(desc(disbursement_amount))
 ```
 
 #Who did most of the Republican money go to? What was the reason for the transaction? 
 ```{r}
 TopRepReciever <- MiRepSepnding %>% 
-  group_by(recipient_name,disbursement_description) %>% 
+  group_by(recipient_name,disbursement_description, Or_disbursement_description) %>% 
   summarise(total= sum(disbursement_amount)
 ) %>%
   arrange(desc(total)) %>% 

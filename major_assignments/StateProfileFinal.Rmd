@@ -68,6 +68,10 @@ CleanMIDemR <- MIDemRecipts %>%
 
 #What entity made the most contributions to the Michigan Democratic Party:
 
+From January 01, 2021 through October 19, 2022, ActBlue Technical Services leads all contributors with 4744 donations. According to the organization's website,  Democratic campaigns use Actblue to "to create online contribution forms, securely process donations, and track their contributions from grassroots supporters." From my understanding, it's not the organization itself that's donating the money, but its money from individual contributors or organzations that's processed using ActBlue services. The organization does not support any particular candidates. Most people who donate using this service give about $30 to $25.However, there were 20 donations using the service of $10,000. I guess that contributors who use this service can remain anonymous as the names of these contributors is not mentioned in this data. 
+
+Other than the Democratic National Committee, the other entities who made the most contributions are individuals: Ellen Kerr, Jeffery Smith, and Joseph Hess. Smith gave 56 contributions for $3,750, while Hess and Kerr donated a little over $1,000. Hess is a attorney and owner at his own healthcare lawfirm in Grand Rapids Michigan. His donations make sense given the Democratic's stance on abortion rights as well as Michigan Democratic Gov. Whitmer.When I search for Jeffery Smith, I see that there's a partner at a law firm that provides healthcare services in Michigan and a doctor of medicine at the University of Michigan Health with the same name. I think that "Ellen Kerr" could be Lee Ellen Kerr, is the Vice President of an nonprofit called Antrim County High Tea for Breast Cancer Prevention. 
+
 ```{r}
 MostContribsDem <- CleanMIDemR %>% 
   group_by(contributor_name) %>% 
@@ -76,11 +80,47 @@ summarise(count=n()
   arrange(desc(count))
 ```
 
+#Filtering specifically for ActBlue:
+
+```{r}
+ActBlue <- CleanMIDemR %>% 
+  clean_names() %>% 
+  select(committee_name_2,contributor_name,contribution_receipt_date,contribution_receipt_amount ) %>% 
+  group_by(contribution_receipt_amount) %>% 
+  filter(contributor_name == "ACTBLUE TECHNICAL SERVICES") %>% 
+  arrange(desc(contribution_receipt_amount))
+```
+
+```{r}
+ActBlueContribAmounts <- ActBlue %>% 
+   group_by(contribution_receipt_amount) %>% 
+summarise(count=n()) %>%
+  arrange(desc(contribution_receipt_amount))
+```
+
+#Filtering Ellen, Kerr
+
+```{r}
+EllenK <- CleanMIDemR %>% 
+  clean_names() %>% 
+  select(committee_name_2,contributor_name,contribution_receipt_date,contribution_receipt_amount ) %>% 
+  group_by(contribution_receipt_amount) %>% 
+  filter(contributor_name == "KERR, ELLEN") %>% 
+  arrange(desc(contribution_receipt_amount))
+
+EllenKContribAmounts <- EllenK %>% 
+   group_by(contribution_receipt_amount) %>% 
+summarise(count=n()) %>%
+  arrange(desc(contribution_receipt_amount))
+```
+
 #Who donated the most money to the Michgan Democratic Party?
+Overall, most of the money donated to the Michigan Democratic Party came from the Democratic National Committee at $2588969.12 and ActBlue at $928739.76. Michigan U.S. Senator Debbie Stabenow's fund donated the third most money to the Democratic Party at $554587.83. About half of the top 20 organizations that gave the most money are from the campaigns of other Michigan government officials. I am curious as to why other states Democratic Parties decided to specifically donate to Michigan. The Ohio Democratic Party that is in the top 5 with $435000. Indiana and Utah's Democratic Parties are in the top 20 of donations to Michigan's Democratic Party. 
 
 ```{r}
 MoneyMostDem <- CleanMIDemR %>% 
   group_by(contributor_name) %>% 
+  mutate(contributor_name = case_when(contributor_name == "DNC" ~ "DEMOCRATIC NATIONAL COMMITTEE",contributor_name == "DNC SERVICES CORP/DNC" ~ "DNC SERVICES CORP.",TRUE ~ contributor_name)) %>% 
   summarise(total= sum(contribution_receipt_amount)
 ) %>%
   arrange(desc(total)) %>% 
@@ -88,6 +128,8 @@ MoneyMostDem <- CleanMIDemR %>%
 ```
 
 #Which individual donated the most money to the Democratic Party?
+
+
 
 ```{r}
 DemTopIndiContrib <- CleanMIDemR %>% 
@@ -98,6 +140,7 @@ DemTopIndiContrib <- CleanMIDemR %>%
   arrange(desc(total)) %>% 
   distinct()
 ```
+
 
 #Which type of entity is donating most of the money for the Democratic Party?
 ```{r}

@@ -207,6 +207,8 @@ CleanMIRepR
 
 #What entity type is donating the most money to the Republican Party? 
 
+Individuals donated the most money to Michigan's Republican Party at $2517661.37, which is more than 99% of the total donations that the party received. Political Action Committees donated $1556.92 and Other committees donated $887.51. It surprised me that individuals made up such a large percentage. It's also surprising that organizations and other campaigns did not make any contributions.
+
 ```{r}
 DonatingMostRep <- CleanMIRepR %>% 
   group_by(entity_type_desc) %>% 
@@ -217,15 +219,30 @@ DonatingMostRep <- CleanMIRepR %>%
 
 #What entity gave the most contributions Michigan Republican Party?
 
+Individuals made up nine of the top ten with the highest number of contributions given to the party. This differs from the Democratic Party, where two of the top five in contributions are a political party committee (Democratic National Committee) and a organization (ActBlue).
+
+Karl Szymanski from Michigan gave the Michigan Republican Party the most contributions at 76. Two of his donations were $100, one was $75, and the rest were $50 and under. The data says that he is retired. Karl and Ronald Davis are the only two people to donate more than 30 contributions. The others in the data set are below 30. 
+
+Winred, the Republican's version of ActBlue, comes in a number 10 on most contributions with 23. I'm curious as to why this platform is not as popular as ActBlue. Are committees not promoting it as much?
+
 ```{r}
 MostContribsRep <- CleanMIRepR %>% 
   group_by(contributor_name) %>% 
 summarise(count=n()
 ) %>%
   arrange(desc(count))
+
+KarlContribs <- CleanMIRepR %>% 
+  clean_names() %>% 
+  select(committee_name_2,contributor_name,contribution_receipt_date,contribution_receipt_amount ) %>% 
+  group_by(contribution_receipt_amount) %>% 
+  filter(contributor_name == "SZYMANSKI, KARL MR.") %>% 
+  arrange(desc(contribution_receipt_amount))
 ```
 
 #Which type of entity made the most number donations to the Republican Party? (Not amount of money)
+
+Individuals gave the most contributions with 5966. Political Action Committee gave 15 contributions. Other committees provided 8 contributions. 
 
 ```{r}
 EntityDonationRep <- CleanMIRepR %>% 
@@ -237,6 +254,15 @@ summarise(count=n()
 
 #Who donated the most money to the Michigan Republican Party?
 
+Nine people in the top 10 tied in donating the most money. Each of them gave $40,000. They're each individual donors. 
+
+Timothy Easterwood from Michigan is a CEO at a company called BizFleets, which is a fleet management service that reduces the cost of owning and operating work vehicles for businesses.
+
+Jay Fishman is the President and Founder of Jay A Fishman Investment Counsel. 
+
+Herbert Henkle is on the Board of Directors at Ingersoll-Rand Company. 
+
+
 ```{r}
 MoneyMostRep <-CleanMIRepR  %>% 
   group_by(contributor_name) %>% 
@@ -246,17 +272,6 @@ MoneyMostRep <-CleanMIRepR  %>%
    distinct()
 ```
 
-#What individual gave the most money to the Michigan Republican Party
-
-```{r}
-RepTopIndiContrib <- CleanMIRepR %>% 
-  filter(entity_type_desc == "INDIVIDUAL") %>% 
-  group_by(contributor_name,contributor_state) %>% 
-  summarise(total= sum(contribution_receipt_amount)
-) %>%
-  arrange(desc(total)) %>% 
-  distinct()
-```
 
 #Just Democratic Individual Contributions from recipts
 

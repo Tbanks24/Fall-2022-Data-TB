@@ -428,7 +428,7 @@ TopRepNoDesc <- CleanMiRepSpend %>%
 
 #What transaction type was most of the money spent on for the Republican Party?-- May need OpenRefine...or string detect
 
-16% of the Republican Party's total spending was spent on creative and production fundraising ($228,959.37). 11% of the party's total spending was spent on online advertising ($167,285.40). 
+16% of the Republican Party's total spending was spent on creative and production fundraising ($228,959.37). 11.7% of the party's total spending was spent on online advertising ($167,285.40). 
 
 ```{r}
 TransTypeRep <- CleanMiRepSpend %>% 

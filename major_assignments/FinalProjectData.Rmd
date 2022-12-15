@@ -93,8 +93,6 @@ Limitations: The dataframe is pretty basic with a small number of columns. That 
 
 To answer most of our questions, we will have to do additional research. For example, we can ask our data for the number of employers and lobbyists in the energy sector and see how that changed over the last few years. To examine how much the top firms make, we have to go back to Maryland Lobbying Registrations and potentially research beyond just the single website.
 
-When looking into the Prince George's County youth curfew question, we won't get clear cut answers from the data alone. Trying to find a connection between the number of lobbyists for matters of juvenile law and the implementation of the curfew will require additional research on our part, but we can ask our data for trends and basic information that can help shape our research.
-
 ### Question 1
 * **Question text**:What lobbyist/registrant represents the most employers in our data set? (Most ever, need all data)
 
@@ -337,13 +335,21 @@ Limitations: While the data for lobbyist registrations can be filtered by regist
 
 **Analysis summary**
 
+**Question text**: Who earned the most money in the latest complete lobbying year (Nov 21 - Oct 22) and which employer spent the most?
+
+In the MSEC activity reports, lobbyists have to report the compensation they have received. The employers state their total expenses.
+
+Limitations: While the data for lobbyist registrations can be filtered by registration matter, the same isn't possible for the activity reports.
+
+**Analysis summary**
+
 Matthew Celentano is by far the top earner for the latest complete lobbying year (Nov 21 - Oct 22). He was compensated over 100 million dollars by the League of Life & Health Insurers of Maryland, Inc. Celentano works for the firm Funk & Bolton, P.A.. According to his LinkedIn profile, he is also the executive director of League of Life, which is a trade association for the insurance industry. (Unsurprisingly, League of Life is the employer that spent the most money in this lobbying year. It's the only employer spending over a million. Second place goes to Constellation Energy Generation, LLC, which spent over $800,000.)
 
-That seems a little suspicious. We are wondering, if that is a legal and common business practice or if there might be something going on worth investigating.
+In the years before, Celentano made much less money, between $190,000 and $300,000. We couldn't find any explanations for the sharp rise in the spending of League of Life, which has been paying Celentano for lobbying at least since 2019. There aren't any relevant news stories about League of Life or Celentano. The extremely high amount spent could indicate a simple typo or a bigger story. Either way, this finding is worth investigating.
 
-12 lobbyists made over a million, while 174 made less than one thousand dollars, 131 of those were compensated $0.
+Overall, 12 lobbyists made over a million, while 174 made less than one thousand dollars, 131 of those were compensated $0.
 
-Maryland Veterinary Medical Association	spend the least money of all employers with just over $18,000.
+Maryland Veterinary Medical Association	spent the least money of all employers with just over $18,000.
 
 
 ## The activity reports can't be filtered by energy registrations, but we want to know which lobbyist made the most money in the reporting period November 21 - October 22 and which employer spent the most money on lobbying.
@@ -380,28 +386,15 @@ top_lobbyists <- clean_activity_reports %>%
   summarise(lobbyist_compensation = sum(lobbyist_compensation)) %>% 
   arrange(desc(lobbyist_compensation))
 top_lobbyists
-```
-
-```{r}
 over_million <- top_lobbyists %>% 
   filter(lobbyist_compensation > 1000000)
 over_million
-```
-
-```{r}
 less_thousand <- top_lobbyists %>% 
   filter(lobbyist_compensation < 1000)
 less_thousand
-```
-
-```{r}
 zero <- top_lobbyists %>% 
   filter(lobbyist_compensation == 0)
 zero
-
-```
-
-```{r}
 celentano <- clean_activity_reports %>% 
   filter(lobbyist_registrant == "Celentano, Matthew")
 celentano
@@ -414,6 +407,180 @@ top_employers <- clean_activity_reports %>%
   summarise(total_expenses = sum(total_expenses)) %>% 
   arrange(desc(total_expenses))
 top_employers
+
+# Let's take a closer look at Celentano's activity reports
+celentano_reports <- read_csv("data/activity_reports_dataset/celentano_activity_reports.csv") %>% clean_names()
+celentano_reports[c('start', 'end')] <- str_split_fixed(celentano_reports$reporting_period, '-', 2)
+
+## We fix the dates
+celentano_reports <- celentano_reports %>% 
+  mutate(new_start = as.Date(start, format = "%m/%d/%y")) %>% 
+  mutate(new_end = as.Date(end, format = "%m/%d/%y")) %>% 
+  mutate(start_year = floor_date(new_start, "year"))
+celentano_reports
+
 ```
 
-We think the most newsworthy finding is that Matthew Celentano is the top earner from the lobbyists. He earned more than $100 million by the League of Life & Health Insurers of Maryland, Inc. It's questionable that he's earned this much as a lobbyist and that an organization is paying that much for an lobbyist. It's also suspicious that Celentano is earning so much from the League of Life as a lobbyist and that he also has an official position there as a Executive Director. We think that this could be worth looking more into if this is not a considered a common business practice.
+```{r}
+## And convert the relevant columns to numeric
+clean_celentano_reports <- celentano_reports %>% 
+  mutate(total_expenses = gsub(",","",total_expenses)) %>% 
+  mutate(total_expenses = str_remove(total_expenses, "[$]")) %>% 
+  mutate(total_expenses = as.numeric(total_expenses)) %>% 
+  mutate(lobbyist_compensation = gsub(",","",lobbyist_compensation)) %>% 
+  mutate(lobbyist_compensation = str_remove(lobbyist_compensation, "[$]")) %>% 
+  mutate(lobbyist_compensation = as.numeric(lobbyist_compensation))
+clean_celentano_reports
+
+## We want to see how much Celentano reported each year
+clean_celentano_reports %>% 
+  group_by(start_year) %>% 
+  summarise(sum(lobbyist_compensation))
+## When did he start working for League of Life?
+clean_celentano_reports %>% 
+  filter(employer == "League of Life & Health Insurers of Maryland, Inc.")
+```
+
+### Question 2
+* **Question text**: Who are the top three "gaming" lobbyists with the most clients (employers), as described and categorized by Maryland Lobbying Registrations? How many of the gaming lobbyists are still active after sports betting was approved by voters November 3, 2020? Who are the top three organizations employing lobbyists and do any of them have locations already within Maryland?
+
+Limitations: Online sports betting was only legalized and began November 23, 2022, so there is not a lot of time to consider that element. Voters approved legal sports betting in Maryland in November 2020, and state legislators passed bills facilitating wagering in April 2021. In-person legalized sports betting did not actively start until December 2021. The earliest registration date is November 2019, so we only have about three-to-four years of data.
+
+* **Analysis summary**: I first downloaded the data set provided by Maryland Lobbying Registrations when you set the "Registration Matters" element of the internal search engine to "Gaming." Upon downloading, there were 328 registrations, and I cleaned the names of lobbyists, organization firms and employers using OpenRefine. After downloading the cleaned data set, I uploaded the set to RStudio. 
+
+Ivan V. Lanier, David H. Carroll, Jr. and Sushant Sidh are the top three lobbyists in Maryland with the most lobbying clients since 2019 with Lanier having 26 registration contracts and Carroll and Sidh both having 13 registration contracts each. Lanier actually founded Greenwill Consulting Group, LLC and operates as the President and Chief Executive Officer where he specializes in lobbying for energy, medical cannabis, transportation, telecommunications, property and health-care. Carroll is a founder and principal lobbyist for Capitol Strategies, LLC and has a history lobbying on issues such as transportation, energy, gaming, education, health care, tax issues, environmental regulation, telecommunications and procurement. Sidh is also a principal lobbyist for Capitol Strategies, LLC and used to work as a Deputy Chief of Staff to Maryland Governor Parris N. Glendening and spent six years in the administration. 
+
+There are 261 registration period contracts regarding gaming that were/are active now that sports betting is legal in Maryland from 49 different gaming employers. Sports betting was legalized in November 2020, began in-person in December 2021 and online sports-betting began November 2022. Most of these contracts are approximately one year long. As for gaming employers that have had the most lobbyist contracts since 2019, CBAC Gaming, LLC (Horseshoe Casino) is at the top with 36 registration period contracts with a tie for second place between MGM Resorts International and PPE Casino Resorts Maryland, LLC with 20 each. CBAC Gaming, LLC owns the Horseshoe Casino in Baltimore which is two stories and the second largest casino in Maryland. The Horseshoe Baltimore Casino features a Caesars Sportsbook on the first place which opened in December 2021 and offers all-year round sports betting. MGM Resorts International has a location in National Harbor in Oxon Hill and features a luxury resort, retail, dining, entertainment and casino. MGM National Harbor also has BetMGM Sportsbook & Lounge for sports betting. PPE Casino Resorts Maryland, LLC owns Live! Casino & Hotel Maryland in Hanover which is Maryland's largest casino and boasts a FanDuel Sportsbook center for sports betting.
+
+Since CBAC Gaming, LLC (Horseshoe Casino) has the most lobbyists and active contracts since 2019, we analyzed how much money it spent per year. Since most of the lobbying periods start around October, 2022 has the lowest amount spent so far as it is an incomplete year. CBAC Gaming spent an equal amount of money in 2020 and 2021 of $240000 per year. Since in-person sports betting was initially passed in 2020, and online sports betting was passed in 2022 that could explain the uptick in lobbying spending.
+
+
+```{r}
+### I first uploaded the dataset and cleaned the names up, split the registration periods into start and end dates, and changed them to be categorized as dates rather than as characters. Now, I can work with this data set.
+gaming <- read_csv("data/gaming.csv") %>% clean_names()
+gaming[c('start', 'end')] <- str_split_fixed(gaming$registration_period, '-', 2)
+gaming_dates <- gaming %>%
+  mutate(start = mdy(start)) %>%
+  mutate(end = mdy(end))
+gaming_dates
+
+#In order to determine which lobbyists have the most clients, I first group by the lobbyists themselves and count how many registration period contracts they each have within the data set. Here, I can see that Ivan V. Lanier, David H. Carroll, Jr. and Sushant Sidh are the top three lobbyists in Maryland with Lanier having 26 registration contracts and Carroll and Sidh both having 13 registration contracts each.
+top_gaming <- gaming_dates %>%
+  group_by(lobbyist_registrant, organization_firm) %>%
+  count() %>%
+  arrange(desc(n))
+top_gaming
+```
+
+
+```{r}
+# Taking a closer look at Lanier, we can filter the dataset to only include his registrations and count how many registration contracts he has with each organization that employed him. We can see that since 2019, Lanier has worked with 11 different employers as a lobbyist for them with Golden Entertainment and HPSO Investments LLC, T/A Riverboat on the Potomac tied for Lanier's top client with 4 contracts each.
+lanier_gaming <- gaming_dates %>% filter(lobbyist_registrant == "Lanier, Ivan  V.") %>%
+  count(employer, source = TRUE) %>%
+  arrange(desc(n))
+lanier_gaming
+
+```
+
+```{r}
+# As for Carroll, we can repeat the process above and see that Carroll has only had four different organizations hire him to be a lobbyist since 2019. Carroll's top employer for lobbying is tied between Atlantic Bingo Supply, Inc and Delta Bingo t/a Daily Double Bingo with four contracts each.
+carroll_gaming <- gaming_dates %>% filter(lobbyist_registrant == "Carroll, Jr., David H.") %>%
+  count(employer, source = TRUE) %>%
+  arrange(desc(n))
+carroll_gaming
+```
+
+```{r}
+# For our last lobbyist, we can see that Sidh and Carroll have the exact same history regarding frequency of lobbying and agencies. When we look at our count of lobbyists, their organizations and how many registration periods they have been active for, we can see that Carroll and Sidh work for the same lobbying agency.
+sidh_gaming <- gaming_dates %>% filter(lobbyist_registrant == "Sidh, Sushant") %>%
+  count(employer, source = TRUE) %>%
+  arrange(desc(n))
+sidh_gaming
+
+
+```
+
+```{r}
+#As for determining how many contracts are still active, I set the "end" filter for the day sports betting became legal in Maryland on November 03, 2020. We can see that there are 261 registration period contracts regarding gaming that are still active now that sports betting is legal in Maryland.
+gaming_contracts <- gaming_dates %>%
+  arrange(desc(end)) %>%
+  filter(end >= "2020-11-03")
+gaming_contracts
+```
+
+
+```{r}
+# Of these 261 active contracts, we can see here that they are from 49 different employers with CBAC Gaming, LLC (Horseshoe Casino) having the most active contracts at 27.
+gaming_contracts %>%
+  count(employer, source = TRUE) %>%
+  arrange(desc(n))
+```
+
+```{r}
+#Taking a step back, we can see how many registration period contracts each gaming employer had since 2019. CBAC Gaming, LLC (Horseshoe Casino) clearly is at the top with 36 registration period contracts with a tie for second place between MGM Resorts International and PPE Casino Resorts Maryland, LLC with 20 each.
+employer_hires <- gaming_dates %>%
+  group_by(employer) %>%
+  count() %>%
+  arrange(desc(n))
+employer_hires
+```
+
+```{r}
+#To visualize this data, we can use ggplot to illustrate just how many more lobbyists/registration period contracts CBAC Gaming, LLC (Horseshoe Casino) truly had.
+top_hires <- employer_hires %>%
+  head(10)
+top_hires %>%
+  ggplot() +
+   geom_bar(aes(x=reorder(employer,n), weight=n)) +
+   coord_flip() + 
+   theme_economist() +
+   labs(
+     title="Number of Lobbying Periods",
+     y = "Number of Lobbying Registration Periods",
+     x = "Organization Employing Lobbyists",
+     caption = "Maryland Lobbying Registrations")
+```
+
+```{r}
+# Taking a closer look at CBAC Gaming, LLC, we can search through their activity reports by searching that employer/company on Maryland Lobbying Registrations. First, I downloaded the dataset and cleaned the data. I split the dates into two independent columns.
+cbac_activity_reports <- read_csv("data/activity_reports_dataset/cbac_activity_reports.csv") %>% clean_names()
+cbac_activity_reports[c('start', 'end')] <- str_split_fixed(cbac_activity_reports$reporting_period, '-', 2)
+```
+
+```{r}
+#Next, I coded the start and end columns to categorize the dates as such rather than as characters.
+cbac_activity_reports <- cbac_activity_reports %>%
+  mutate(start = mdy(start)) %>%
+  mutate(end = mdy(end))
+```
+
+```{r}
+# After mutating the relevant lobbyist_compensation columns, the columns became money rather than characters. We were then able to create a floor_date for each year and observe the amount of money spent by CBAC Gaming, LLC each year since 2019.
+cbac_activity_years <- cbac_activity_reports %>%
+  mutate(lobbyist_compensation = gsub(",","",lobbyist_compensation)) %>%
+  mutate(lobbyist_compensation = str_remove(lobbyist_compensation, "[$]")) %>%
+  mutate(lobbyist_compensation = as.numeric(lobbyist_compensation)) %>%
+  mutate(start_year = floor_date(start, "year")) %>%
+  group_by(start_year) %>%
+  summarise(total = (sum(lobbyist_compensation)))
+cbac_activity_years
+```
+
+```{r}
+# To visualize the data, I created another bar graph and organized it by the highest amount spent per year since 2019.
+cbac_activity_years %>%
+  ggplot() +
+   geom_bar(aes(x=reorder(start_year,(total)), weight=(total))) +
+   coord_flip() + 
+   theme_economist() +
+   labs(
+     title="CBAC Spending Inceased in Between Elections",
+     y = "Amount of Money Spent Per Year",
+     x = "Spending Year",
+     caption = "Maryland Lobbying Registrations")
+```
+
+```{r}
+
+```
+

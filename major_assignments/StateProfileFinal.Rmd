@@ -291,7 +291,7 @@ RepIndiContribs <- CleanMIRepR %>%
 
 The Michigan Democratic Party received most of its money from the Washington, D.C. at $4717282.54. Michigan gve the state's party the second most at $2415077.67. Massachusetts, California, and Ohio all round out the top five.
 
-The Michigan Republican Party receives most of its money from the state of Michigan at $1679098.75.Florida gave the party the second most in terms of money at 273,476.29. California, Colorado, and Texas round out the top five. 
+The Michigan Republican Party receives most of its money from the state of Michigan at $1679098.75.Florida gave the party the second most in terms of money at $273,476.29. California, Colorado, and Texas round out the top five. 
 
 ```{r}
 StateDem <- CleanMIDemR %>% 
@@ -342,7 +342,7 @@ summarise(count=n()) %>%
 ```
 
 
-#Spending --- Ask questions about standardizing fundraising....specifically for republicans. 
+#SPENDING --- Ask questions about standardizing fundraising....specifically for republicans. 
 
 #Cleaning and organizing spending Democratic Data
 
@@ -359,6 +359,8 @@ CleanMiDemSpend <- MiDemSpending %>%
 
 #Who did most of the Democratic money go to? What was the reason of the transaction?
 
+The top overall transaction by the Democratic Party was $816204.67 given to The Strategy Group for Absentee Ballot Mailer. The Democratic Party also spent the most money at The Strategy Group, spending $866204.67 total. $50000.0 of that total was spent on direct mail voter protection. The Strategy Group has previously served as the direct mail strategist for President Obama during his two Presidential campaigns. The company has also been involved in the election of several Democratic members of congress and several Democratic Gubernatorial candidates. The party also spent more money in terms on mail at Mission Control Inc. and Gumbiner and Davies Communications. These companies were also in the top that received the most money from the state's Democratic Party. The party also spent a lot of money, $188958.00 total, on voter registration with SHAWMUT SERVICES LLC. 
+
 ```{r}
 TopRecieverDem <- CleanMiDemSpend %>% 
   group_by(recipient_name,disbursement_description, or_disbursement_description) %>% 
@@ -366,9 +368,19 @@ TopRecieverDem <- CleanMiDemSpend %>%
 ) %>%
   arrange(desc(total)) %>% 
   distinct()
+
+TopDemNoDesc <- CleanMiDemSpend %>% 
+  group_by(recipient_name) %>% 
+   summarise(total= sum(disbursement_amount)
+) %>%
+  arrange(desc(total)) %>% 
+  distinct()
+
 ```
 
 #What transaction type was most of the money spent on for the Democratic Party?-- May need OpenRefine...or string detect.
+
+About 27% of the Michigan Democratic Party's money was just spent on the salary of it's employees. About 16% and 15% respectively were spent on absentee ballots and other mail. About 10% was spent on payroll taxes.
 
 ```{r}
 TransTypeDem <- CleanMiDemSpend %>% 
@@ -393,16 +405,31 @@ CleanMiRepSpend <- MiRepSepnding %>%
 ```
 
 #Who did most of the Republican money go to? What was the reason for the transaction? 
+
+The Michigan Republican Party gave most of its money to itself, spending $287673.18. While there is not a description on the transaction that tells why most of that money was spent, we do know that $75,480.0.of it was given to the party for "levin transfer for split bills." The party spent a lot of money on creative and production fundraising at both Unisource Direct LLC ($149630.05) and ARC Print Solutions ($69533.33 for creative production and $35588.72 for postage for fundraising). 
+
+I also find it interesting that the top choice for advertising was online. They party spent $149,195.29 on online advertising with the company IMGE.It's also interesting that the state's Republican Party spent $40,000 on Voter ID registration software from Campaign Sidekick. Does this have to do with the national Republican Party's lack of trust in the voting system?  
+
 ```{r}
-TopRepReciever <- MiRepSepnding %>% 
-  group_by(recipient_name,disbursement_description, Or_disbursement_description) %>% 
+TopRepReciever <- CleanMiRepSpend %>% 
+  group_by(recipient_name,disbursement_description, or_disbursement_description) %>% 
   summarise(total= sum(disbursement_amount)
+) %>%
+  arrange(desc(total)) %>% 
+  distinct()
+
+TopRepNoDesc <- CleanMiRepSpend %>% 
+  group_by(recipient_name) %>% 
+   summarise(total= sum(disbursement_amount)
 ) %>%
   arrange(desc(total)) %>% 
   distinct()
 ```
 
 #What transaction type was most of the money spent on for the Republican Party?-- May need OpenRefine...or string detect
+
+16% of the Republican Party's total spending was spent on creative and production fundraising ($228,959.37). 11% of the party's total spending was spent on online advertising ($167,285.40). 
+
 ```{r}
 TransTypeRep <- CleanMiRepSpend %>% 
   group_by(disbursement_description) %>% 
@@ -413,6 +440,8 @@ TransTypeRep <- CleanMiRepSpend %>%
 ```
 
 #Who spent more overall, Democrats or Republicans? 
+
+Ultimately, the Republican Party spent less money than the Democratic Party. Michigan's Republican Party spent $1427744 compared to the Democratic Party that spent $5026673. That's a $3,598,929 difference. 
 
 # Total Democratic Spending
 

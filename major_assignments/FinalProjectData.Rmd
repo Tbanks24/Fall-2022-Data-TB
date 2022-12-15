@@ -100,6 +100,7 @@ When looking into the Prince George's County youth curfew question, we won't get
 
 * **Analysis summary**:*Analysis summary**:  The lobbyist that represents the most employers in our data set was Timothy A. Perry. He's been representing employers for 12 years as a member of Perry White Ross Jacobson LLC and served as Chief of Staff to Senate President Thomas V. Mike Miller, Jr., the longest serving State Senate President in United States history. He lives in Baltimore County, Maryland, and has represented 126 distinct employers in our joined data set. He's represented employers such as Stevenson University and AT&T over four of our data cycles. According to a profile written about him in September 2022, he specializes in government relations and serves as a board member of First Fruits Farm, a charitable nonprofit organization that specializes in food services. (https://marquistoplawyers.com/2022/09/16/timothy-perry/)
 
+** It would be interested to look into the reasons why he has represented certain groups...Profile on his 12 years as a member of Perry White Ross Jacobson. What type of lobbying was he doing? 
 
 ```{r}
 most_employers <- clean_total_registrations %>% 

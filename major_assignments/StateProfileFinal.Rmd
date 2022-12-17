@@ -36,25 +36,45 @@ MiDemSpending <- read_csv("StatesData/MiDemRefSpending-csv.csv")
 ```
 -How can you describe (broadly) the party’s donors? Where do the parties get their money and from what kinds of donors? Do they raise a lot in small amounts or from out of state donors?
 
+Answer: The Michigan Democratic Party received the most money in donations with a total of $10382351.The Michigan Republican Party received $2520106. That's a difference of $7,862,245.
+
+The Michigan Democratic Party received most from Political Party Committees (38%) and individual donors (27%). The Michigan Republican Party received most of its money from Individuals (99.9%) and Political Action Committees (0.06%). It surprised me that the Republican Party did not receive more money from political action committees and that it received none from any other organizations. 
+
+Half of the top 20 organizations that gave the most money to the Democratic Party are from the campaigns of other Michigan government officials. Democratic Parties in Ohio, Utah, and Indiana also significantly contributed. 
+
+Most of the Democratic Party's money came from Washington DC ($4717282.54) with the Democratic National Committee Contributing most of that. Michigan, Massachusetts, California and Ohio round out the top five. The Michigan Republican Party receives most of its money from the state of Michigan at $1679098.75.Florida gave the party the second most in terms of money at $273,476.29. California, Colorado, and Texas round out the top five.
+
+The Democratic Party received most of its contributions in $30 dollar donations. 1658 contributions came in the amount of $30. 1311 Democratic contributions came in the amount of $25. 1115
+contributions came in the amount of $100. Most of the Republican Party's donations came in the amount of $25. 1322 contributions were made in that amount. 1085 contributions were made in the amount of $10 and 656 were made in the amount of $5.
+
+In terms of the most individual donors, the top individual donor for the Democratic Party was Merle Catherine Chambers from Colorado, who donated $27200 in three contributions. Chambers is a lawyer, investor, and philanthropist that has a history of donating to other Democratic campaigns in Colorado, New Hampshire, and Missouri. She gave money to organizations connected to Bill Clinton in 1992. 
+
+Betsy Devos, former United States Secretary of Education from 2017 to 2021, donated $20,000 to the Republican Party. She is from Michigan. Her husband, Richard Devos JR, and five other members of their family each donated $20,000. They each gave two contributions of $10,000. David Devos only donated $400.
+
+Just looking at the Republican Contributions data, there appears that more groups of families that contributed to the Republican Party than in the Democratic contribution dataset.
+
+
 -What did the party spend its money on? You may need OpenRefine to help you standardize the purpose of spending. Can you tell much about the strategy behind the spending from the data?
+
+
+
+
+Answer:
+
+
 
 -When you compare the two parties, where are the differences and similarities?
 
+
+
 -What about either the donors or the spending prompts further questions from you?
 
-Recipts:
-committee_name_2
-report_year
-entity_type_desc- Filter for individual donnations. 
-contributor_first_name
-contributor_last_name
-contributor_street_1
-contributor_city
-contributor_state
-contributor_employer
-contributor_occupation
-contribution_receipt_date
-contribution_receipt_amount
+I am curious as to why other states Democratic Parties decided to specifically donate to Michigan. The Ohio Democratic Party that is in the top 5 of money donated to the party with $435000. Indiana and Utah's Democratic Parties are in the top 20 of money donated to Michigan's Democratic Party.
+
+Is there a reason why more families tend to donate more money to the Republican Party than in the Democratic Party?
+
+Why aren't more political action committees supporting the Republican Party? Why are there no other organizations contributing to the party?
+
 
 #Organizing and cleaning Michigan Democratic recipts:
 
@@ -460,5 +480,17 @@ OverSpendRep <- CleanMiRepSpend %>%
   group_by(committee_name) %>% 
   summarise(total_amount = sum(disbursement_amount))
 OverSpendRep
+```
+MAPS AND CHARTS:
+
+
+```{r}
+DemConMap <- StateDem %>% 
+  mutate(DemPer = (total/10382351)*100)
+
+write.csv(DemConMap, "StatesData/DemConMap.csv")
+
+
+
 ```
 

@@ -34,7 +34,8 @@ MIRepRecipts <- read_csv("StatesData/MIRepAllRecipts.csv")
 MiRepSepnding <- read_csv("StatesData/MIRepRefSpending-csv.csv")
 MiDemSpending <- read_csv("StatesData/MiDemRefSpending-csv.csv")
 ```
--How can you describe (broadly) the party’s donors? Where do the parties get their money and from what kinds of donors? Do they raise a lot in small amounts or from out of state donors?
+
+***How can you describe (broadly) the party’s donors? Where do the parties get their money and from what kinds of donors? Do they raise a lot in small amounts or from out of state donors?
 
 Answer: The Michigan Democratic Party received the most money in donations with a total of $10382351.The Michigan Republican Party received $2520106. That's a difference of $7,862,245.
 
@@ -53,21 +54,17 @@ Betsy Devos, former United States Secretary of Education from 2017 to 2021, dona
 
 Just looking at the Republican Contributions data, there appears that more groups of families that contributed to the Republican Party than in the Democratic contribution dataset.
 
-
--What did the party spend its money on? You may need OpenRefine to help you standardize the purpose of spending. Can you tell much about the strategy behind the spending from the data?
+***What did the party spend its money on? You may need OpenRefine to help you standardize the purpose of spending. Can you tell much about the strategy behind the spending from the data?
 
 A: Ultimately, the Republican Party spent less money than the Democratic Party. Michigan's Republican Party spent $1427744 compared to the Democratic Party that spent $5026673. That's a $3,598,929 difference. 
 
 The top overall transaction by the Democratic Party was $816204.67 given to The Strategy Group for Absentee Ballot Mailer. The Democratic Party also spent the most money at The Strategy Group, spending $866204.67 total. $50000 of that total was spent on direct mail voter protection. It's clear that the Democratic Party in Michigan has continued to focus on mail-in voting. During the pandemic, there was a huge emphasis on mail-in voting because many voters did not feel comfortable going to the voting booths. Ultimately, mail-in voting provides more people with the chance to vote, which is why the Democratic Party is investing so much into it. 
 
-The Michigan Republican Party gave most of its money to itself, spending $287673.18. This could just be tha party transfering money from its federal account to it state account or vice versaI found it interesting that the top choice for advertising for the Michigan Republican Party was online. They party spent $149,195.29 on online advertising with the company IMGE. It's also interesting that the state's Republican Party spent more than $40,000 on Voter ID registration software from Campaign Sidekick. Does this have to do with the national Republican Party's lack of trust in the voting system? 
+The Michigan Republican Party gave most of its money to itself, spending $287673.18. This could just be that party transfering money from its federal account to it state account or vice versaI found it interesting that the top choice for advertising for the Michigan Republican Party was online. They party spent $149,195.29 on online advertising with the company IMGE. It's also interesting that the state's Republican Party spent more than $40,000 on Voter ID registration software from Campaign Sidekick. Does this have to do with the national Republican Party's lack of trust in the voting system? 
 
+The Democratic Party spent a lot of money on GOTV (Get out the vote advertising) for advertising. The recipient of this transaction was Facebook. I believe that Facebook advertising was the top choice for Democrats. So, both parties invested heavily in online advertising. 
 
-
-
--When you compare the two parties, where are the differences and similarities?
-
-
+Both parties invested heavily in mail, as it is a top 5 expense for both parties. 
 
 -What about either the donors or the spending prompts further questions from you?
 
@@ -433,6 +430,8 @@ CleanMiRepSpend <- MiRepSepnding %>%
 The Michigan Republican Party gave most of its money to itself, spending $287673.18. While there is not a description on the transaction that tells why most of that money was spent, we do know that $75,480.0.of it was given to the party for "levin transfer for split bills." The party spent a lot of money on creative and production fundraising at both Unisource Direct LLC ($149630.05) and ARC Print Solutions ($69533.33 for creative production and $35588.72 for postage for fundraising). 
 
 I also find it interesting that the top choice for advertising was online. They party spent $149,195.29 on online advertising with the company IMGE.It's also interesting that the state's Republican Party spent $40,000 on Voter ID registration software from Campaign Sidekick. Does this have to do with the national Republican Party's lack of trust in the voting system?  
+
+The Democratic Party spent a lot of money on GOTV (Get out the vote advertising) for advertising. The recipient of this transaction was Facebook. I believe that Facebook advertising was the top choice for Democrats. So, both parties invested heavily in online advertising. 
 
 ```{r}
 TopRepReciever <- CleanMiRepSpend %>% 

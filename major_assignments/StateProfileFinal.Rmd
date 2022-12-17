@@ -485,14 +485,31 @@ OverSpendRep
 ```
 MAPS AND CHARTS:
 
+#Map of states' donations to the Michigan Democratic Party:
+
+https://datawrapper.dwcdn.net/Rn0di/5/
 
 ```{r}
 DemConMap <- StateDem %>% 
-  mutate(DemPer = (total/10382351)*100)
+  mutate(Percent = (total/10382351)*100)
 
 write.csv(DemConMap, "StatesData/DemConMap.csv")
 
 
 
 ```
+
+#Map of states' donations to the Michigan Republican Party:
+
+https://datawrapper.dwcdn.net/cAhdt/1/
+
+```{r}
+RepConMap <- StateRep %>% 
+mutate(Percent = (total/2520106)*100)
+
+write.csv(RepConMap, "StatesData/RepConMap.csv")
+
+```
+
+
 

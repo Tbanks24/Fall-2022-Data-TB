@@ -45,13 +45,13 @@ Half of the top 20 organizations that gave the most money to the Democratic Part
 
 Most of the Democratic Party's money came from Washington DC ($4717282.54) with the Democratic National Committee Contributing most of that. Michigan, Massachusetts, California and Ohio round out the top five. The Michigan Republican Party receives most of its money from the state of Michigan at $1679098.75.Florida gave the party the second most in terms of money at $273,476.29. California, Colorado, and Texas round out the top five.
 
-The Democratic Party received most of its contributions in $30 dollar donations. 1658 contributions came in the amount of $30. 1311 Democratic contributions came in the amount of $25. 1115 contributions came in the amount of $100. Most of the Republican Party's donations came in the amount of $25. 1322 contributions were made in that amount. 1085 contributions were made in the amount of $10 and 656 were made in the amount of $5.
+The Democratic Party received most of its contributions in $30 dollar donations. 1658 contributions came in the amount of $30. 1311 Democratic contributions came in the amount of $25. 1115 contributions came in the amount of $100. Most of the Republican Party's donations came in the amount of $25. 1322 contributions were made in that amount. 1085 contributions were made in the amount of $10 and 656 were made in the amount of $5.The Republican Party's most popular donation amounts were less than the Democrats. 
 
-In terms of the most individual donors, the top individual donor for the Democratic Party was Merle Catherine Chambers from Colorado, who donated $27200 in three contributions. Chambers is a lawyer, investor, and philanthropist that has a history of donating to other Democratic campaigns in Colorado, New Hampshire, and Missouri. She gave money to organizations connected to Bill Clinton in 1992. 
+In terms of the most individual donors, the top individual donor for the Democratic Party was Merle Catherine Chambers from Colorado, who donated $27200 in three contributions. Chambers is a lawyer, investor, and philanthropist that has a history of donating to other Democratic campaigns in Colorado, New Hampshire, and Missouri. She gave money to organizations connected to Bill Clinton in 1992. I think a profile story on Catherine Chamber could be interesting. She could talk about her rationale for supporting the party, and discuss the state of it.
 
 Betsy Devos, former United States Secretary of Education from 2017 to 2021, donated $20,000 to the Republican Party. She is from Michigan. Her husband, Richard Devos JR, and five other members of their family each donated $20,000. They each gave two contributions of $10,000. David Devos only donated $400.
 
-Just looking at the Republican Contributions data, there appears that more groups of families that contributed to the Republican Party than in the Democratic contribution dataset.
+Just looking at the Republican Contributions data, there appears that more groups of families contributed to the Republican Party than in the Democratic contribution dataset.
 
 ***What did the party spend its money on? You may need OpenRefine to help you standardize the purpose of spending. Can you tell much about the strategy behind the spending from the data?
 
@@ -59,20 +59,25 @@ A: Ultimately, the Republican Party spent less money than the Democratic Party. 
 
 The top overall transaction by the Democratic Party was $816204.67 given to The Strategy Group for Absentee Ballot Mailer. The Democratic Party also spent the most money at The Strategy Group, spending $866204.67 total. $50000 of that total was spent on direct mail voter protection. It's clear that the Democratic Party in Michigan has continued to focus on mail-in voting. During the pandemic, there was a huge emphasis on mail-in voting because many voters did not feel comfortable going to the voting booths. Ultimately, mail-in voting provides more people with the chance to vote, which is why the Democratic Party is investing so much into it. 
 
-The Michigan Republican Party gave most of its money to itself, spending $287673.18. This could just be that party transfering money from its federal account to it state account or vice versaI found it interesting that the top choice for advertising for the Michigan Republican Party was online. They party spent $149,195.29 on online advertising with the company IMGE. It's also interesting that the state's Republican Party spent more than $40,000 on Voter ID registration software from Campaign Sidekick. Does this have to do with the national Republican Party's lack of trust in the voting system? 
+The Michigan Republican Party gave most of its money to itself, spending $287673.18. This could just be that party transfering money from its federal account to it state account or vice versa.I found it interesting that the top choice for advertising for the Michigan Republican Party was online. They party spent $149,195.29 on online advertising with the company IMGE. It's also interesting that the state's Republican Party spent more than $40,000 on Voter ID registration software from Campaign Sidekick. Does this have to do with the national Republican Party's lack of trust in the voting system? 
 
-The Democratic Party spent a lot of money on GOTV (Get out the vote advertising) for advertising. The recipient of this transaction was Facebook. I believe that Facebook advertising was the top choice for Democrats. So, both parties invested heavily in online advertising. 
+The Democratic Party spent a lot of money on GOTV (Get out the vote) for advertising. The recipient of this transaction was Facebook. I believe that Facebook advertising was the top choice for Democrats. So, both parties invested heavily in online advertising. 
 
 Both parties invested heavily in mail, as it is a top 5 expense for both parties. 
+
 ***What about either the donors or the spending prompts further questions from you?
 
-I am curious as to why other states Democratic Parties decided to specifically donate to Michigan. The Ohio Democratic Party that is in the top 5 of money donated to the party with $435000. Indiana and Utah's Democratic Parties are in the top 20 of money donated to Michigan's Democratic Party.
+I am curious as to why other states Democratic Parties decided to specifically donate to Michigan. The Ohio Democratic Party is in the top 5 of money donated to the party with $435000. Indiana and Utah's Democratic Parties are in the top 20 of money donated to Michigan's Democratic Party.
 
 Is there a reason why more families tend to donate more money to the Republican Party than in the Democratic Party?
 
 Why aren't more political action committees supporting the Republican Party? Why are there no other organizations contributing to the party?
 
 Is the Michigan Republican Party's $42,000 investment in Voter ID registration software a reflection of the national Republican Party's lack of trust in the voting system? 
+
+Is there a reason why the most popular donations to Michigan's Republican Party tend to be lower?
+
+How does Catherine Chambers decide which Democratic Parties she wants to donate to? Is there some type of pattern to her donations. 
 
 #Organizing and cleaning Michigan Democratic recipts:
 
@@ -507,7 +512,7 @@ write.csv(RepConMap, "StatesData/RepConMap.csv")
 
 ```
 
-#Bar chart that shows which type of enity donated the most money to the Democratic Party. 
+#Bar chart that shows which type of enity type donated the most money to the Democratic Party. 
 
 https://datawrapper.dwcdn.net/XG8nZ/1/ 
 

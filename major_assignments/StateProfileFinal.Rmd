@@ -79,6 +79,8 @@ Is there a reason why the most popular donations to Michigan's Republican Party 
 
 How does Catherine Chambers decide which Democratic Parties she wants to donate to? Is there some type of pattern to her donations. 
 
+How effective has GOTV advertising on Facebook been for the Michigan Democratic Party?
+
 #Organizing and cleaning Michigan Democratic recipts:
 
 ```{r}

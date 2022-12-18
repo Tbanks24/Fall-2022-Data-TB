@@ -509,6 +509,8 @@ write.csv(RepConMap, "StatesData/RepConMap.csv")
 
 #Bar chart that shows which type of enity donated the most money to the Democratic Party. 
 
+https://datawrapper.dwcdn.net/XG8nZ/1/ 
+
 ```{r}
 DemEnityChart <- DonatingMostDem
   
